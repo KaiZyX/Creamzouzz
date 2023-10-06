@@ -17,7 +17,7 @@ if ($connexion->connect_error) {
 $username = "AnisDali";
 $password = "anis";
 
-// Requête SQL pour vérifier l'utilisateur
+// Requête SQL pour vérifier l'utilisateur 
 $query = "SELECT * FROM User WHERE user_name = ? AND password = ?";
 $stmt = $connexion->prepare($query);
 $stmt->bind_param("ss", $username, $password);
