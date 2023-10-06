@@ -1,0 +1,61 @@
+
+/* styles.css louka- anis  */
+
+.card-img-cointaner {
+    height: 300px; /* Ajustez la hauteur selon vos besoins */
+    object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
+}
+
+
+.main{
+    margin-top: 200px; /* Ajoutez de l'espace entre les deux sections */
+}
+
+.main, .container  {
+    margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
+}
+
+.card-img-main {
+    height: 500px; /* Ajustez la hauteur selon vos besoins */
+    object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
+}
+
+
+/* Styles pour l'en-tête (header) */
+header {
+    background-color: #28a745; /* Couleur verte par défaut (vous pouvez la personnaliser) */
+    padding: 10px 0; /* Espacement intérieur en haut et en bas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    height: 150px; /* Ajustez la hauteur du header selon vos besoins */
+}
+
+
+
+/* Styles pour la barre de navigation */
+.navbar {
+    min-height: 60px; /* Hauteur minimale de la barre de navigation */
+}
+
+/* Styles pour les liens de navigation */
+.navbar-nav .nav-link {
+    color: #fff; /* Couleur du texte des liens */
+    font-weight: bold; /* Gras */
+}
+
+/* Styles pour le logo */
+.navbar-brand img {
+    width: 200px; /* Largeur du logo */
+    height: 200px; /* Hauteur automatique pour maintenir le ratio */
+}
+
+/* Styles pour les liens actifs (lorsque vous survolez ou cliquez sur un lien) */
+.navbar-nav .nav-item.active .nav-link {
+    background-color: transparent; /* Fond transparent pour les liens actifs */
+    color: #ffc107; /* Couleur de texte pour les liens actifs */
+}
+
+/* Styles pour les liens au survol (hover) */
+.navbar-nav .nav-item:hover .nav-link {
+    background-color: #ffc107; /* Fond jaune au survol */
+    color: #333; /* Couleur de texte au survol */
+}
