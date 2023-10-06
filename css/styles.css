@@ -60,3 +60,28 @@ header {
     background-color: #ffc107; /* Fond jaune au survol */
     color: #333; /* Couleur de texte au survol */
 }
+
+/* Styles pour la section du panier */
+#cart {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+#cart h2 {
+    font-size: 24px;
+}
+
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+#cart-total {
+    font-weight: bold;
+}
+
+#checkout-button {
+    margin-top: 10px;
+}
+
