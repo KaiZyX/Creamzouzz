@@ -86,3 +86,29 @@
     font-family: 'Poppins', sans-serif;
   }
   
+  .cart-modal {
+    width: 450px; /* Largeur souhaitée */
+    max-height: 80vh; /* Hauteur maximale de 80% de la hauteur de la vue */
+    overflow-y: auto; /* Ajoute une barre de défilement vertical si nécessaire */
+    position: fixed;
+    top: 5%;
+    left: 100%;
+    transform: translate(-100%, -5%);
+}
+#total-price {
+    font-size: 24px; /* Taille de police plus grande */
+    margin-top: 25px;
+}
+h2 {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+
