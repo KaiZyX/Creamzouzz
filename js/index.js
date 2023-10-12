@@ -214,6 +214,8 @@ closeButton.addEventListener("click", () => {
     cartModal.style.display = "none"; // Masque la fenêtre modale
 });
 
+
+
 document.getElementById('checkout').addEventListener('click', function() {
     window.location.href = 'login.html';
 });
