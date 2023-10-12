@@ -1,5 +1,6 @@
 // smooth-scroll.js
 
+
 // Fonction pour le défilement en douceur lors du clic sur un lien de navigation
 function smoothScroll(targetId) {
     const target = document.getElementById(targetId);
@@ -85,8 +86,9 @@ function updateTotalPrice() {
 }
 
 // Lorsqu'un article est ajouté au panier
-function addItemToCart(itemName, itemPrice) {
-    const existingItem = cartItems.find(item => item.name === itemName);
+function addItemToCart(itemName, itemPrice, itemType) {
+    // Recherchez si l'article est déjà dans le panier
+    const existingItem = cartItems.find(item => item.name === itemName && item.type === itemType);
 
     if (existingItem) {
         // Si l'article existe déjà, augmentez la quantité
@@ -96,6 +98,7 @@ function addItemToCart(itemName, itemPrice) {
         const newItem = {
             name: itemName,
             price: itemPrice,
+            type: itemType, // Ajoutez le type de l'article
             quantity: 1
         };
         cartItems.push(newItem);
@@ -109,7 +112,7 @@ function addItemToCart(itemName, itemPrice) {
     updateTotalPrice();
 }
 
-// Lorsqu'un article est retiré du panier
+
 // Lorsqu'un article est retiré du panier
 function removeItemFromCart(itemName, itemPrice) {
     const existingItem = cartItems.find(item => item.name === itemName);
@@ -137,47 +140,42 @@ function removeItemFromCart(itemName, itemPrice) {
 
 
 
-// Fonction pour ajouter un article au panier
-function addToCart(itemName, itemPrice) {
-    // Recherchez si l'article est déjà dans le panier
-    const existingItem = cartItems.find(item => item.name === itemName);
 
-    if (existingItem) {
-        // Si l'article existe déjà, augmentez la quantité
-        existingItem.quantity++;
-    } else {
-        // Sinon, ajoutez un nouvel article au panier
-        const newItem = {
-            name: itemName,
-            price: itemPrice,
-            quantity: 1
-        };
-        cartItems.push(newItem);
-    }
-
-    // Mettez à jour l'affichage du panier
-    updateCartDisplay();
-}
 
 // Fonction pour mettre à jour l'affichage du panier
 function updateCartDisplay() {
     const cartContent = document.getElementById("cart-content");
     cartContent.innerHTML = ""; // Effacez le contenu précédent du panier
 
-    // Parcourez le panier et ajoutez chaque article à l'affichage
+    // Créez des sections distinctes pour les glaces et les toppings
+    const iceCreamSection = document.createElement("div");
+    iceCreamSection.classList.add("cart-section", "ice-cream-section");
+    iceCreamSection.innerHTML = "<h3>Glace :</h3>"; // Ajoutez le titre "Glace"
+
+    const toppingSection = document.createElement("div");
+    toppingSection.classList.add("cart-section", "topping-section");
+    toppingSection.innerHTML = "<h3>Toppings :</h3>"; // Ajoutez le titre "Toppings"
+
     cartItems.forEach(item => {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
         cartItem.innerHTML = `
             <span class="item-quantity">${item.quantity}</span>
             <span class="item-name">${item.name}</span>
-            <span class="item-price">$${item.price.toFixed(2)}</span>
-            
+            <span class="item-price">$${(item.price.toFixed(2))*item.quantity}</span>
         `;
-        cartContent.appendChild(cartItem);
-    });
-}
 
+        if (item.type === 'glace') {
+            iceCreamSection.appendChild(cartItem); // Ajoutez l'article à la section "glace"
+        } else if (item.type === 'topping') {
+            toppingSection.appendChild(cartItem); // Ajoutez l'article à la section "topping"
+        }
+    });
+
+    // Ajoutez les sections au panier
+    cartContent.appendChild(iceCreamSection);
+    cartContent.appendChild(toppingSection);
+}
 // Écoutez les clics sur les boutons "Acheter"
 const buyButtons = document.querySelectorAll(".buy-button");
 buyButtons.forEach(button => {
@@ -215,3 +213,4 @@ openCartButton.addEventListener("click", () => {
 closeButton.addEventListener("click", () => {
     cartModal.style.display = "none"; // Masque la fenêtre modale
 });
+

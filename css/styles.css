@@ -97,7 +97,18 @@
 }
 #total-price {
     font-size: 24px; /* Taille de police plus grande */
+    margin-top: 25px;
+}
+h2 {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 50px;
 }
 
+h3 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
 
 

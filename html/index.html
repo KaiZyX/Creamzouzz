@@ -46,7 +46,14 @@
             <span class="close">&times;</span>
             <h2>Votre Panier</h2>
             <div id="cart-content">
-                <!-- Le contenu du panier sera affiché ici -->
+                <div class="cart-section ice-cream-section">
+                    <h3>Glace</h3> <!-- Titre de la section "Glace" -->
+                    <!-- Contenu du panier pour les glaces -->
+                </div>
+                <div class="cart-section topping-section">
+                    <h3>Toppings</h3> <!-- Titre de la section "Toppings" -->
+                    <!-- Contenu du panier pour les toppings -->
+                </div>
             </div>
             <p id="total-price">Prix total : $0.00</p>
             <button id="clear-cart-button">Vider le panier</button>
@@ -78,6 +85,7 @@
     
 
     <section id="container" class="container">
+        <h2>GLACE</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
@@ -87,9 +95,9 @@
                         <p class="card-text">Description de l'article 1.</p>
                         <p class="card-text">Prix : $10.00</p>
                         <!-- Bouton pour ajouter l'article au panier -->
-                        <button class="btn btn-primary" onclick="addItemToCart('Magnum', 10.00)">Ajouter au panier</button>
+                        <button class="btn btn-primary" onclick="addItemToCart('Magnum', 10.00, 'glace')">Ajouter au panier</button>
                         <!-- Bouton pour retirer l'article du panier -->
-                        <button class="btn btn-danger" onclick="removeItemFromCart('Magnum', 10.00)">Retirer du panier</button>
+                        <button class="btn btn-danger" onclick="removeItemFromCart('Magnum', 10.00, 'glace')">Retirer du panier</button>
                     </div>
                 </div>
             </div>
@@ -102,9 +110,9 @@
                         <p class="card-text">Description de l'article 1.</p>
                         <p class="card-text">Prix : $10.00</p>
                         <!-- Bouton pour ajouter l'article au panier -->
-                        <button class="btn btn-primary" onclick="addItemToCart('Ben&Jerry', 10.00)">Ajouter au panier</button>
+                        <button class="btn btn-primary" onclick="addItemToCart('Ben&Jerry', 10.00, 'glace')">Ajouter au panier</button>
                         <!-- Bouton pour retirer l'article du panier -->
-                        <button class="btn btn-danger" onclick="removeItemFromCart('Ben&Jerry', 10.00)">Retirer du panier</button>
+                        <button class="btn btn-danger" onclick="removeItemFromCart('Ben&Jerry', 10.00, 'glace')">Retirer du panier</button>
                     </div>
                 </div>
             </div>
@@ -118,19 +126,21 @@
                         <p class="card-text">Description de l'article 1.</p>
                         <p class="card-text">Prix : $10.00</p>
                         <!-- Bouton pour ajouter l'article au panier -->
-                        <button class="btn btn-primary" onclick="addItemToCart('Haagen-Dazs', 10.00)">Ajouter au panier</button>
+                        <button class="btn btn-primary" onclick="addItemToCart('Haagen-Dazs', 10.00, 'glace')">Ajouter au panier</button>
                         <!-- Bouton pour retirer l'article du panier -->
-                        <button class="btn btn-danger" onclick="removeItemFromCart('Haagen-Dazs', 10.00)">Retirer du panier</button>
+                        <button class="btn btn-danger" onclick="removeItemFromCart('Haagen-Dazs', 10.00, 'glace')">Retirer du panier</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-
+    <hr>
+    
     <section id="topping" class="topping">
+        
         <div class="container">
+            <h2>TOPPINGS</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
@@ -140,9 +150,9 @@
                             <p class="card-text">Description de l'article 1.</p>
                             <p class="card-text">Prix : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Chocolate', 10.00)">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Chocolate', 10.00 ,'topping')">Ajouter au panier</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Chocolate', 10.00)">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Chocolate', 10.00,'topping')">Retirer du panier</button>
                         </div>
                     </div>
                 </div>
@@ -155,9 +165,9 @@
                             <p class="card-text">Description de l'article 1.</p>
                             <p class="card-text">Prix : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Caramel', 10.00)">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Caramel', 10.00,'topping')">Ajouter au panier</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Caramel', 10.00)">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Caramel', 10.00,'topping')">Retirer du panier</button>
                         </div>
                     </div>
                 </div>
@@ -170,9 +180,9 @@
                             <p class="card-text">Description de l'article 1.</p>
                             <p class="card-text">Prix : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Smarties', 10.00)">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Smarties', 10.00,'topping')">Ajouter au panier</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Smarties', 10.00)">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Smarties', 10.00,'topping')">Retirer du panier</button>
                         </div>
                     </div>
                 </div>
@@ -248,7 +258,7 @@
 
     <footer class="text-center mt-5 d-flex justify-content-center align-items-center">
         <p class="mr-2">&copy; 2023 Ice Cream Shop</p>
-        <a href="https://github.com/votre-utilisateur" target="_blank" class="align-self-end">
+        <a href="https://github.com/KaiZyX/Creamzouzz" target="_blank" class="align-self-end">
             <img src="https://img.icons8.com/ios/452/github--v1.png" alt="GitHub" width="30" height="30" >
         </a>
     </footer>
