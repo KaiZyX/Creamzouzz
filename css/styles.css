@@ -1,6 +1,5 @@
 
-/* Test the nisso grand joueur dofus*/
-
+/* styles.css */
 
 
 /* sfdfsdfsdfsdf  */
@@ -37,9 +36,10 @@
 
 .main{
     margin-top: 200px; /* Ajoutez de l'espace entre les deux sections */
+    margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
 }
 
-.main, .container  {
+.container  {
     margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
 }
 
@@ -48,42 +48,134 @@
     object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
 }
 
+/* Nav Bar */
 
-/* Styles pour l'en-tête (header) */
-header {
-    background-color: #28a745; /* Couleur verte par défaut (vous pouvez la personnaliser) */
-    padding: 10px 0; /* Espacement intérieur en haut et en bas */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère */
-    height: 150px; /* Ajustez la hauteur du header selon vos besoins */
+/* Style pour la lettre "I" en bleu */
+.blue-letter {
+    color: #62C3E7;
+    font-family: 'Poppins', sans-serif; /* Police différente */
+    font-size: 50px; /* Taille de texte plus grande */
+  }
+  
+  /* Style pour le reste du mot en rose */
+  .pink-letters {
+    color: #F195B2; /* Couleur rose */
+    font-family: 'Poppins', sans-serif; /* Police différente */
+    font-size: 45px; /* Taille de texte plus grande */
+  }
+  
+
+  /* Réinitialisation des marges et des paddings */
+  body, ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style de la barre de navigation */
+  .navbar {
+    background-color: white;
+    border-radius: 40px; /* Augmentez la valeur de border-radius pour rendre les bords plus arrondis */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    margin: 20px 250px; /* Ajout de marges uniquement en haut et en bas */
+  }
+  
+  
+  /* Style de la liste non ordonnée (horizontal) */
+  .navbar ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Style des éléments de liste (liens) */
+  .navbar li {
+    margin: 0 50px;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 20px; /* Augmentez la valeur de font-size pour augmenter la taille des liens */
+    transition: color 0.3s;
+  }
+  
+ /* Changement de couleur au survol pour les liens de la barre de navigation */
+.navbar-nav .nav-item .nav-link:hover {
+    color: #F195B2; /* Couleur rose */
+}
+
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .cart-modal {
+    width: 450px; /* Largeur souhaitée */
+    max-height: 80vh; /* Hauteur maximale de 80% de la hauteur de la vue */
+    overflow-y: auto; /* Ajoute une barre de défilement vertical si nécessaire */
+    position: fixed;
+    top: 5%;
+    left: 100%;
+    transform: translate(-100%, -5%);
+}
+#total-price {
+    font-size: 24px; /* Taille de police plus grande */
+    margin-top: 25px;
+}
+h2 {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 
 
-/* Styles pour la barre de navigation */
-.navbar {
-    min-height: 60px; /* Hauteur minimale de la barre de navigation */
+
+
+.parallax {
+  position: relative;
+  background-image: url('https://www.iceshop.fr/guide/wp-content/uploads/2021/11/glace-5.jpeg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
 
-/* Styles pour les liens de navigation */
-.navbar-nav .nav-link {
-    color: #fff; /* Couleur du texte des liens */
-    font-weight: bold; /* Gras */
+/* Créez un pseudo-élément ::before pour assombrir l'image de fond */
+.parallax::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.5); /* Couleur d'arrière-plan semi-transparente noire */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
 }
 
-/* Styles pour le logo */
-.navbar-brand img {
-    width: 200px; /* Largeur du logo */
-    height: 200px; /* Hauteur automatique pour maintenir le ratio */
+
+
+
+
+.col-md-6{
+  margin-top: 250px;
+  font-size: 24px;
+  color: white;
 }
 
-/* Styles pour les liens actifs (lorsque vous survolez ou cliquez sur un lien) */
-.navbar-nav .nav-item.active .nav-link {
-    background-color: transparent; /* Fond transparent pour les liens actifs */
-    color: #ffc107; /* Couleur de texte pour les liens actifs */
-}
-
-/* Styles pour les liens au survol (hover) */
-.navbar-nav .nav-item:hover .nav-link {
-    background-color: #ffc107; /* Fond jaune au survol */
-    color: #333; /* Couleur de texte au survol */
+.col-md-6 img{
+  width: 150%;
+  margin-left: -250px;
+  margin-top: -50px;
 }
