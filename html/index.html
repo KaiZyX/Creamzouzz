@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="../css/styles.css">
     <!-- Ajoutez le code d'importation de la police Poppins ici -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap">
-    <!-- Ajoutez le code d'importation de la police Poppins ici -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap">
 </head>
 <body>
 
@@ -35,15 +33,15 @@
                 </li>
                 <!-- Ajoutez l'icône du panier à droite -->
                 <li class="nav-item cart-icon">
-                    <a class="nav-link" href="panier.html">
-                        <img src="https://img.icons8.com/?size=48&id=RZVvpEvg0RO9&format=png" alt="Panier" width="50" height="50" >
+                    <a class="nav-link" href="#" id="open-cart-button">
+                        <img src="https://img.icons8.com/?size=48&id=RZVvpEvg0RO9&format=png" alt="Panier" width="50" height="50">
                     </a>
                 </li>
             </ul>
         </nav>
         
-        
     </header>
+
     <div id="cart-modal" class="modal cart-modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -60,6 +58,7 @@
             </div>
             <p id="total-price">Prix total : $0.00</p>
             <button id="clear-cart-button">Vider le panier</button>
+            <button id="checkout">Passer la commande</button>
         </div>
     </div>
     
@@ -138,8 +137,8 @@
         </div>
     </section>
 
-
-
+    <hr>
+    
     <section id="topping" class="topping">
         
         <div class="container">
@@ -248,7 +247,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="https://cdn.discordapp.com/attachments/926879303268978749/1161316869790257182/Anis.jpg?ex=6537db9d&is=6525669d&hm=fc1a7a49f8f2fcc0d0c35530ab46705a1b61853bf7bb43d760bc518f22698199&" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                        <img src="../img/Anis.jpg" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
                     </div>
                     <h4>Anis DALI-AHMED</h4>
                     <p>Dofus Player</p>

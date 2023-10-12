@@ -2,113 +2,113 @@
 /* styles.css */
 
 .card-img-cointaner {
-    height: 300px; /* Ajustez la hauteur selon vos besoins */
-    object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
+  height: 300px; /* Ajustez la hauteur selon vos besoins */
+  object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
 }
 
 
 .main{
-    margin-top: 200px; /* Ajoutez de l'espace entre les deux sections */
-    margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
+  margin-top: 200px; /* Ajoutez de l'espace entre les deux sections */
+  margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
 }
 
 .container  {
-    margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
+  margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
 }
 
 .card-img-main {
-    height: 500px; /* Ajustez la hauteur selon vos besoins */
-    object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
+  height: 500px; /* Ajustez la hauteur selon vos besoins */
+  object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
 }
 
 /* Nav Bar */
 
 /* Style pour la lettre "I" en bleu */
 .blue-letter {
-    color: #62C3E7;
-    font-family: 'Poppins', sans-serif; /* Police différente */
-    font-size: 50px; /* Taille de texte plus grande */
-  }
-  
-  /* Style pour le reste du mot en rose */
-  .pink-letters {
-    color: #F195B2; /* Couleur rose */
-    font-family: 'Poppins', sans-serif; /* Police différente */
-    font-size: 45px; /* Taille de texte plus grande */
-  }
-  
+  color: #62C3E7;
+  font-family: 'Poppins', sans-serif; /* Police différente */
+  font-size: 50px; /* Taille de texte plus grande */
+}
 
-  /* Réinitialisation des marges et des paddings */
-  body, ul {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Style de la barre de navigation */
-  .navbar {
-    background-color: white;
-    border-radius: 40px; /* Augmentez la valeur de border-radius pour rendre les bords plus arrondis */
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-    padding: 10px 20px;
-    margin: 20px 250px; /* Ajout de marges uniquement en haut et en bas */
-  }
-  
-  
-  /* Style de la liste non ordonnée (horizontal) */
-  .navbar ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  /* Style des éléments de liste (liens) */
-  .navbar li {
-    margin: 0 50px;
-  }
-  
-  .navbar a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 20px; /* Augmentez la valeur de font-size pour augmenter la taille des liens */
-    transition: color 0.3s;
-  }
-  
- /* Changement de couleur au survol pour les liens de la barre de navigation */
+/* Style pour le reste du mot en rose */
+.pink-letters {
+  color: #F195B2; /* Couleur rose */
+  font-family: 'Poppins', sans-serif; /* Police différente */
+  font-size: 45px; /* Taille de texte plus grande */
+}
+
+
+/* Réinitialisation des marges et des paddings */
+body, ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style de la barre de navigation */
+.navbar {
+  background-color: white;
+  border-radius: 40px; /* Augmentez la valeur de border-radius pour rendre les bords plus arrondis */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  margin: 20px 250px; /* Ajout de marges uniquement en haut et en bas */
+}
+
+
+/* Style de la liste non ordonnée (horizontal) */
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Style des éléments de liste (liens) */
+.navbar li {
+  margin: 0 50px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 20px; /* Augmentez la valeur de font-size pour augmenter la taille des liens */
+  transition: color 0.3s;
+}
+
+/* Changement de couleur au survol pour les liens de la barre de navigation */
 .navbar-nav .nav-item .nav-link:hover {
-    color: #F195B2; /* Couleur rose */
+  color: #F195B2; /* Couleur rose */
 }
 
-  
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  .cart-modal {
-    width: 450px; /* Largeur souhaitée */
-    max-height: 80vh; /* Hauteur maximale de 80% de la hauteur de la vue */
-    overflow-y: auto; /* Ajoute une barre de défilement vertical si nécessaire */
-    position: fixed;
-    top: 5%;
-    left: 100%;
-    transform: translate(-100%, -5%);
+
+body {
+  font-family: 'Poppins', sans-serif;
 }
+
+.cart-modal {
+  width: 450px; /* Largeur souhaitée */
+  max-height: 80vh; /* Hauteur maximale de 80% de la hauteur de la vue */
+  overflow-y: auto; /* Ajoute une barre de défilement vertical si nécessaire */
+  position: fixed;
+  top: 5%;
+  left: 100%;
+  transform: translate(-100%, -5%);
+}
+
+
 #total-price {
-    font-size: 24px; /* Taille de police plus grande */
-    margin-top: 25px;
+  font-size: 24px; /* Taille de police plus grande */
+  margin-top: 25px;
 }
 h2 {
-  text-align: center;
-  margin-top: 25px;
-  margin-bottom: 50px;
+text-align: center;
+margin-top: 25px;
+margin-bottom: 50px;
 }
 
 h3 {
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 15px;
+text-align: center;
+margin-top: 10px;
+margin-bottom: 15px;
 }
-
-
