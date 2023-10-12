@@ -214,3 +214,5 @@ closeButton.addEventListener("click", () => {
     cartModal.style.display = "none"; // Masque la fenêtre modale
 });
 
+
+

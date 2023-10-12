@@ -112,3 +112,43 @@ h3 {
 }
 
 
+
+
+
+.parallax {
+  position: relative;
+  background-image: url('https://www.iceshop.fr/guide/wp-content/uploads/2021/11/glace-5.jpeg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+/* Créez un pseudo-élément ::before pour assombrir l'image de fond */
+.parallax::before {
+  content: "";
+  background: rgba(0, 0, 0, 0.5); /* Couleur d'arrière-plan semi-transparente noire */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+}
+
+
+
+
+
+.col-md-6{
+  margin-top: 250px;
+  font-size: 24px;
+  color: white;
+}
+
+.col-md-6 img{
+  width: 150%;
+  margin-left: -250px;
+  margin-top: -50px;
+}
