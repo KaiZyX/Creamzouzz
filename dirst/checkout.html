@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/checkout.css">
+  <title>Payment - Icreamzouz</title>
+</head>
+<body>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <form action="">
+                    <h2>Payment</h2>
+                    <div class="inputbox">
+                        <ion-icon name="card-outline"></ion-icon>
+                        <input type="text" id="cardNumber" required>
+                        <label for="cardNumber">Card Number</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="person-outline"></ion-icon>
+                        <input type="text" id="cardOwner" required>
+                        <label for "cardOwner">Card Owner</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <input type="text" id="expirationDate" required>
+                        <label for="expirationDate">Expiration Date</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="text" id="cvv" required>
+                        <label for="cvv">CVV</label>
+                    </div>
+                    <button id="payButton">Pay Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="popup" class="popup">
+        <p>Payment Successful</p>
+    </div>
+    <script src="js/checkout.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
