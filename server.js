@@ -8,7 +8,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-app.use(express.static('dirst'));
+app.use(express.static('public'));
 
 const dbConfig = {
     host: 'localhost',
@@ -22,6 +22,9 @@ app.listen(process.env.WEB_PORT, '0.0.0.0', () => {
     console.log("Écoute sur le port " + process.env.WEB_PORT);
 });
 
+
+
+// Test pour savoir s'il existe un utilisateur 
 app.get('/', async (request, response) => {
     try {
         const conn = await mysql.createConnection(dbConfig);
@@ -29,9 +32,23 @@ app.get('/', async (request, response) => {
         await conn.end();
 
         let clientIp = request.ip;
-        response.send(`Bonjour, cher ${clientIp}. J'ai trouvé ${rows.length} utilisateurs dans la base de données.`);
+        
+        response.render('index', { ip: clientIp, users: rows });
     } catch (error) {
         console.error(error);
         response.status(500).send('Erreur Interne du Serveur');
     }
+});
+
+
+app.get('/login', function(req, res) {
+    res.render('login'); 
+});
+
+app.get('/register', function(req, res) {
+    res.render('register'); 
+});
+
+app.get('/checkout', function(req, res) {
+    res.render('checkout'); 
 });

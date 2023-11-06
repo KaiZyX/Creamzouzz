@@ -7,7 +7,7 @@
     <!-- Intégration de Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Fichier CSS personnalisé -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/index.css">
     <!-- Ajoutez le code d'importation de la police Poppins ici -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap">
 </head>
@@ -41,14 +41,13 @@
         </nav>
         
     </header>
-
     <div id="cart-modal" class="modal cart-modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Votre Panier</h2>
+            <h2>Your cart</h2>
             <div id="cart-content">
                 <div class="cart-section ice-cream-section">
-                    <h3>Glace</h3> <!-- Titre de la section "Glace" -->
+                    <h3>Icecream</h3> <!-- Titre de la section "Glace" -->
                     <!-- Contenu du panier pour les glaces -->
                 </div>
                 <div class="cart-section topping-section">
@@ -56,9 +55,9 @@
                     <!-- Contenu du panier pour les toppings -->
                 </div>
             </div>
-            <p id="total-price">Prix total : $0.00</p>
-            <button id="clear-cart-button">Vider le panier</button>
-            <button id="checkout">Passer la commande</button>
+            <p id="total-price">Total Price : $0.00</p>
+            <button id="clear-cart-button">Empty cart</button>
+            <button id="checkout">Pass command</button>
         </div>
     </div>
     
@@ -78,32 +77,33 @@
                         </div>
                         <div class="col-md-6">
                             <h1>Ice Cream Shop</h1>
-                            <p><br><br>Bienvenue dans notre boutique de glaces artisanales</p>
-                            <p>Nous offrons une variété de délicieuses saveurs de glaces pour satisfaire vos papilles.</p>
-                            <p>Venez découvrir la fraîcheur et la qualité de nos produits faits avec amour.</p>
+                            <p><br><br>Welcome to our craft ice cream shop</p>
+                            <p>We offer a variety of delicious ice cream flavors to satisfy your taste buds.</p>
+                            <p>Come and discover the freshness and quality of our products made with love.</p>
                         </div>
                     </div>
                 </div>
-            </div>
+              </div>
+        </section>
     </section>
 
 
     
 
     <section id="container" class="container">
-        <h2>GLACE</h2>
+        <h2>ICECREAMS</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
                     <img src="https://mojood.ma/wp-content/uploads/2022/02/8714100289969_PHOTOSITE_20210429_170050_0.jpg" class="card-img-cointaner" alt="Magnum">
                     <div class="card-body">
                         <h5 class="card-title">Magnum</h5>
-                        <p class="card-text">Description de l'article 1.</p>
-                        <p class="card-text">Prix : $10.00</p>
+                        <p class="card-text">A Magnum ice cream with crunchy chocolate let yourself be carried away by this taste</p>
+                        <p class="card-text">Price : $10.00</p>
                         <!-- Bouton pour ajouter l'article au panier -->
-                        <button class="btn btn-primary" onclick="addItemToCart('Magnum', 10.00, 'glace')">Ajouter au panier</button>
+                        <button class="btn btn-primary" onclick="addItemToCart('Magnum', 10.00, 'glace')">Add to cart</button>
                         <!-- Bouton pour retirer l'article du panier -->
-                        <button class="btn btn-danger" onclick="removeItemFromCart('Magnum', 10.00, 'glace')">Retirer du panier</button>
+                        <button class="btn btn-danger" onclick="removeItemFromCart('Magnum', 10.00, 'glace')">Remove from cart</button>
                     </div>
                 </div>
             </div>
@@ -113,12 +113,12 @@
                     <img src="https://www.benandjerrys.ca/files/live/sites/systemsite/files/flavors/products/aa/pints/open-closed-pints/choc-chip-cookie-dough-landing.png" class="card-img-cointaner" alt="Article">
                     <div class="card-body">
                         <h5 class="card-title">Ben&Jerry</h5>
-                        <p class="card-text">Description de l'article 1.</p>
-                        <p class="card-text">Prix : $10.00</p>
+                        <p class="card-text">A desire for sweetness, Ben&Jerry ice cream is for you</p>
+                        <p class="card-text">Price : $10.00</p>
                         <!-- Bouton pour ajouter l'article au panier -->
-                        <button class="btn btn-primary" onclick="addItemToCart('Ben&Jerry', 10.00, 'glace')">Ajouter au panier</button>
+                        <button class="btn btn-primary" onclick="addItemToCart('Ben&Jerry', 10.00, 'glace')">Add to cart</button>
                         <!-- Bouton pour retirer l'article du panier -->
-                        <button class="btn btn-danger" onclick="removeItemFromCart('Ben&Jerry', 10.00, 'glace')">Retirer du panier</button>
+                        <button class="btn btn-danger" onclick="removeItemFromCart('Ben&Jerry', 10.00, 'glace')">Remove from cart</button>
                     </div>
                 </div>
             </div>
@@ -129,12 +129,12 @@
                     <img src="data:image/jpeg;base64,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" class="card-img-cointaner" alt="Article">
                     <div class="card-body">
                         <h5 class="card-title">Haagen-Dazs</h5>
-                        <p class="card-text">Description de l'article 1.</p>
-                        <p class="card-text">Prix : $10.00</p>
+                        <p class="card-text">Fall in love with the special vanilla of Haagen-Dazs</p>
+                        <p class="card-text">Price : $10.00</p>
                         <!-- Bouton pour ajouter l'article au panier -->
-                        <button class="btn btn-primary" onclick="addItemToCart('Haagen-Dazs', 10.00, 'glace')">Ajouter au panier</button>
+                        <button class="btn btn-primary" onclick="addItemToCart('Haagen-Dazs', 10.00, 'glace')">Add to cart</button>
                         <!-- Bouton pour retirer l'article du panier -->
-                        <button class="btn btn-danger" onclick="removeItemFromCart('Haagen-Dazs', 10.00, 'glace')">Retirer du panier</button>
+                        <button class="btn btn-danger" onclick="removeItemFromCart('Haagen-Dazs', 10.00, 'glace')">Remove from cart</button>
                     </div>
                 </div>
             </div>
@@ -153,12 +153,12 @@
                         <img src="https://www.leparisien.fr/resizer/sqhdr6yegDjJCsgcjbqLGrtrTP8=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/leparisien/NWOI3QZBXVEJLBE2B7GXLHBAL4.jpg" class="card-img-cointaner" alt="Magnum">
                         <div class="card-body">
                             <h5 class="card-title">Chocolate</h5>
-                            <p class="card-text">Description de l'article 1.</p>
-                            <p class="card-text">Prix : $10.00</p>
+                            <p class="card-text">Chocolate lover?</p>
+                            <p class="card-text">Price : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Chocolate', 10.00 ,'topping')">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Chocolate', 10.00 ,'topping')">Add to cart</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Chocolate', 10.00,'topping')">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Chocolate', 10.00,'topping')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
@@ -168,12 +168,12 @@
                         <img src="https://athome.starbucks.com/sites/default/files/styles/homepage_banner_xlarge/public/2023-01/CAH_CaramelSyrup_Hdr_2880x1660.jpg.webp?itok=mOvsP-lu" class="card-img-cointaner" alt="Magnum">
                         <div class="card-body">
                             <h5 class="card-title">Caramel</h5>
-                            <p class="card-text">Description de l'article 1.</p>
-                            <p class="card-text">Prix : $10.00</p>
+                            <p class="card-text">A little more sugar to your masterpiece</p>
+                            <p class="card-text">Price : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Caramel', 10.00,'topping')">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Caramel', 10.00,'topping')">Add to cart</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Caramel', 10.00,'topping')">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Caramel', 10.00,'topping')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
@@ -183,12 +183,12 @@
                         <img src="https://p6.focus.de/img/fotos/id_13450842/m-m-choclate-gettyimages-911654750.jpg?im=Resize%3D%28800%2C600%29&impolicy=perceptual&quality=mediumHigh&hash=4a15aadb569970535a953b75dcac99accb1424b03193ff9715e2b934311f59d3" class="card-img-cointaner" alt="Magnum">
                         <div class="card-body">
                             <h5 class="card-title">Smarties</h5>
-                            <p class="card-text">Description de l'article 1.</p>
-                            <p class="card-text">Prix : $10.00</p>
+                            <p class="card-text">Fall back into childhood</p>
+                            <p class="card-text">Price : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Smarties', 10.00,'topping')">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Smarties', 10.00,'topping')">Add to cart</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Smarties', 10.00,'topping')">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Smarties', 10.00,'topping')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
@@ -200,13 +200,13 @@
                     <div class="card">
                         <img src="https://www.matierebrutelab.com/blog/wp-content/uploads/2022/08/framboises.jpg" class="card-img-cointaner" alt="Magnum">
                         <div class="card-body">
-                            <h5 class="card-title">Framboises</h5>
-                            <p class="card-text">Description de l'article 1.</p>
-                            <p class="card-text">Prix : $10.00</p>
+                            <h5 class="card-title">Raspberries</h5>
+                            <p class="card-text">Straight out of the garden </p>
+                            <p class="card-text">Price : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Framboises', 10.00 ,'topping')">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Framboises', 10.00 ,'topping')">Add to cart</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Framboises', 10.00,'topping')">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Framboises', 10.00,'topping')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
@@ -216,12 +216,12 @@
                         <img src="https://www.academiedugout.fr/images/75754/948-580/adobestock_107198209.jpeg?poix=50&poiy=50" class="card-img-cointaner" alt="Magnum">
                         <div class="card-body">
                             <h5 class="card-title">Chantilly</h5>
-                            <p class="card-text">Description de l'article 1.</p>
-                            <p class="card-text">Prix : $10.00</p>
+                            <p class="card-text">Add a little sweetness</p>
+                            <p class="card-text">Price : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Chantilly', 10.00,'topping')">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Chantilly', 10.00,'topping')">Add to cart</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Chantilly', 10.00,'topping')">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Chantilly', 10.00,'topping')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
@@ -230,13 +230,13 @@
                     <div class="card">
                         <img src="https://file1.topsante.com/var/topsante/storage/images/medecine/troubles-cardiovasculaires/avc/prevenir/les-cacahuetes-reduiraient-le-risque-de-maladies-cardiovasculaires-245717/5661399-1-fre-FR/Les-cacahuetes-reduiraient-le-risque-de-maladies-cardiovasculaires.jpg?alias=original" class="card-img-cointaner" alt="Magnum">
                         <div class="card-body">
-                            <h5 class="card-title">Cacahuetes</h5>
-                            <p class="card-text">Description de l'article 1.</p>
-                            <p class="card-text">Prix : $10.00</p>
+                            <h5 class="card-title">Peanuts</h5>
+                            <p class="card-text">Always good to add</p>
+                            <p class="card-text">Price : $10.00</p>
                             <!-- Bouton pour ajouter l'article au panier -->
-                            <button class="btn btn-primary" onclick="addItemToCart('Cacahuetes', 10.00,'topping')">Ajouter au panier</button>
+                            <button class="btn btn-primary" onclick="addItemToCart('Cacahuetes', 10.00,'topping')">Add to cart</button>
                             <!-- Bouton pour retirer l'article du panier -->
-                            <button class="btn btn-danger" onclick="removeItemFromCart('Cacahuetes', 10.00,'topping')">Retirer du panier</button>
+                            <button class="btn btn-danger" onclick="removeItemFromCart('Cacahuetes', 10.00,'topping')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
@@ -247,25 +247,25 @@
 
     <section id="about"  class="about">
         <div class="container text-center">
-            <h2>À Propos de Notre Équipe</h2>
+            <h2>About Our Team</h2>
             <div class="row">
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="../img/Anis.jpg" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                        <img src="img/Anis.jpg" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
                     </div>
                     <h4>Anis DALI-AHMED</h4>
                     <p>Dofus Player</p>
                 </div>
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="https://cdn.discordapp.com/attachments/926879303268978749/1161317510365335582/Louka.jpg?ex=6537dc36&is=65256736&hm=df75496a7a750d9bc53d10efcd7e40e6168276e4d0a1c3cf99b2ff3b85291b44&" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                        <img src="img/Louka.jpg" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
                     </div>
                     <h4>Louka MILAN</h4>
                     <p>Lebron James</p>
                 </div>
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="https://cdn.discordapp.com/attachments/926879303268978749/1161317509975244931/Kevin.png?ex=6537dc36&is=65256736&hm=9779c2b6da9898b2ada1a0bdf1c68b2e84639f735abb1bb88e967d60c223b936&" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                        <img src="img/Kevin.png" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
                     </div>
                     <h4>Kevin TRINH</h4>
                     <p> 北方话</p>
@@ -282,10 +282,9 @@
     </footer>
     
     <!-- Intégration de Bootstrap JavaScript (jQuery et Popper.js requis) -->
-    <script src="js/index.js"></script>
+    <script src="/js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>

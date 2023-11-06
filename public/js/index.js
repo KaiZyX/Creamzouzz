@@ -217,5 +217,5 @@ closeButton.addEventListener("click", () => {
 
 
 document.getElementById('checkout').addEventListener('click', function() {
-    window.location.href = 'login.html';
+    window.location.href = '/login';
 });
