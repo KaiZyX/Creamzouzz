@@ -2,6 +2,7 @@ const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
 const express = require('express');
 
+require('dotenv').config();
 dotenv.config();
 
 const app = express();
@@ -11,17 +12,15 @@ app.set("views", "views");
 app.use(express.static('public'));
 
 const dbConfig = {
-    host: 'localhost',
-    user: 'root',
-    database: 'icecream_db',
-    password: 'louka',
-    debug: false
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE
 };
 
 app.listen(process.env.WEB_PORT, '0.0.0.0', () => {
     console.log("Écoute sur le port " + process.env.WEB_PORT);
 });
-
 
 
 // Test pour savoir s'il existe un utilisateur 
@@ -52,3 +51,19 @@ app.get('/register', function(req, res) {
 app.get('/checkout', function(req, res) {
     res.render('checkout'); 
 });
+
+
+
+
+const authController = require('./controllers/authController');
+const registerController = require('./controllers/registerController'); // Importez le nouveau contrôleur
+
+
+// Middleware pour analyser le corps des requêtes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // Pour parser les corps des requêtes URL-encoded
+
+
+app.post('/login', authController.login);
+app.post('/register', registerController.register); // Ajoutez la route d'inscription
+

@@ -66,6 +66,8 @@ CREATE TABLE User (
     
 );
 
+ALTER TABLE User MODIFY COLUMN user_created DATETIME DEFAULT CURRENT_TIMESTAMP;
+
 CREATE TABLE Orders (
     order_id INT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -112,10 +114,10 @@ INSERT INTO Connector (conn_icecream, conn_topping) VALUES
     (3, 2), 
     (3, 3);
 
-INSERT INTO User (user_created, user_name, user_email, user_address) VALUES
-    ('2023-09-19 12:00:00', 'AnisDali', 'anis.dali@efrei.net', '47 Rue Dupont'),
-    ('2023-09-20 10:30:00', 'LoukaMilan', 'louka.milan@efrei.net', '53 Rue Emile Zola' ),
-    ('2023-09-21 15:45:00', 'KevinTrinh', 'kevin.trinh@efrei.net', '93 Avenue Mozart');
+INSERT INTO User (user_created, user_name, user_email, user_address, user_password) VALUES
+    ('2023-09-19 12:00:00', 'AnisDali', 'anis.dali@efrei.net', '47 Rue Dupont', '$2b$10$gG.cgILFH6jd45nefzg8.O/Gid6ShfMYvCRuFjDK8yL2DI3uti8my'),
+    ('2023-09-20 10:30:00', 'LoukaMilan', 'louka.milan@efrei.net', '53 Rue Emile Zola', '$2b$10$wwsQv3m3vnZhKtQdoB1THu4CHpj7czG5/7J2TkCjQe1LOr0gUblZ6' ),
+    ('2023-09-21 15:45:00', 'KevinTrinh', 'kevin.trinh@efrei.net', '93 Avenue Mozart', '$2b$10$qfSW624K20JpL.FPXR5XsOsWTQTliqjiZjj4jqnHltbirTBLSy7vu');
     
 INSERT INTO Orders (order_id, user_id, icecream_id,topping_id,order_date) VALUES
     (1, 1,1,2, '2023-09-19'),

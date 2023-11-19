@@ -150,7 +150,7 @@ function updateCartDisplay() {
     // Créez des sections distinctes pour les glaces et les toppings
     const iceCreamSection = document.createElement("div");
     iceCreamSection.classList.add("cart-section", "ice-cream-section");
-    iceCreamSection.innerHTML = "<h3>Glace :</h3>"; // Ajoutez le titre "Glace"
+    iceCreamSection.innerHTML = "<h3>Icecream :</h3>"; // Ajoutez le titre "Glace"
 
     const toppingSection = document.createElement("div");
     toppingSection.classList.add("cart-section", "topping-section");
