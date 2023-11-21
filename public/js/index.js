@@ -1,6 +1,3 @@
-
-
-
 // Fonction pour le défilement en douceur lors du clic sur un lien de navigation
 function smoothScroll(targetId) {
     const target = document.getElementById(targetId);
@@ -16,206 +13,195 @@ function smoothScroll(targetId) {
 const navLinks = document.querySelectorAll(".nav-link");
 navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
-        e.preventDefault(); // Empêche le comportement de lien par défaut
-        
-        // Récupère l'ID de la section cible
+        e.preventDefault();
         const targetId = link.getAttribute("href").slice(1);
-        
-        // Appel de la fonction de défilement en douceur
         smoothScroll(targetId);
-        
-        // Ajoute une classe "active" au lien actuellement cliqué
-        navLinks.forEach(navLink => {
-            navLink.classList.remove("active");
-        });
+        navLinks.forEach(navLink => navLink.classList.remove("active"));
         link.classList.add("active");
     });
 });
-
 
 // Fonction pour détecter la section visible
 function detectVisibleSection() {
     const sections = document.querySelectorAll("section");
     let visibleSectionId = null;
-
     sections.forEach(section => {
         const rect = section.getBoundingClientRect();
         if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
             visibleSectionId = section.getAttribute("id");
         }
     });
-
     return visibleSectionId;
 }
 
 // Fonction pour mettre en surbrillance le lien de la barre de navigation correspondant
 function highlightNavLink() {
     const visibleSectionId = detectVisibleSection();
-
     if (visibleSectionId) {
         navLinks.forEach(link => {
-            if (link.getAttribute("href").slice(1) === visibleSectionId) {
-                link.classList.add("active"); // Ajoute la classe "active" pour mettre en surbrillance
-            } else {
-                link.classList.remove("active"); // Supprime la classe "active" pour les autres liens
-            }
+            link.classList[link.getAttribute("href").slice(1) === visibleSectionId ? "add" : "remove"]("active");
         });
     }
 }
 
-// Ajoutez un gestionnaire d'événements pour le défilement de la page
-window.addEventListener("scroll", () => {
-    highlightNavLink();
-});
+window.addEventListener("scroll", highlightNavLink);
+window.addEventListener("load", highlightNavLink);
 
-// Exécutez la fonction au chargement de la page
-window.addEventListener("load", () => {
-    highlightNavLink();
-});
-
-// Créez une structure de données pour le panier
 let cartItems = [];
-
 let totalPrice = 0.00;
+let userId = null; // Devrait être mis à jour lors de la connexion de l'utilisateur
 
-// Fonction pour mettre à jour le prix total
 function updateTotalPrice() {
-    
+    if (isNaN(totalPrice)) {
+        totalPrice = 0.00;
+    }
     const totalPriceElement = document.getElementById('total-price');
-    totalPriceElement.textContent = `Prix total : $${totalPrice.toFixed(2)}`;
+    totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
 }
 
-// Lorsqu'un article est ajouté au panier
-function addItemToCart(itemName, itemPrice, itemType) {
-    // Recherchez si l'article est déjà dans le panier
-    const existingItem = cartItems.find(item => item.name === itemName && item.type === itemType);
 
+
+// Ajouter un article au panier
+function addItemToCart(icecreamId, toppingId, quantity, price, itemName) {
+
+    console.log("Adding to cart:", { icecreamId, toppingId, quantity, price, itemName });
+    // Vérifier si l'article est déjà dans le panier
+    const existingItem = cartItems.find(item => item.icecreamId === icecreamId && item.toppingId === toppingId);
     if (existingItem) {
-        // Si l'article existe déjà, augmentez la quantité
-        existingItem.quantity++;
+        existingItem.quantity += quantity;
     } else {
-        // Sinon, ajoutez un nouvel article au panier
-        const newItem = {
-            name: itemName,
-            price: itemPrice,
-            type: itemType, // Ajoutez le type de l'article
-            quantity: 1
-        };
-        cartItems.push(newItem);
+        cartItems.push({ icecreamId, toppingId, quantity, price, name: itemName });
     }
 
-    // Mettez à jour l'affichage du panier
+    totalPrice += price * quantity;
     updateCartDisplay();
-    // Ajoutez le prix de l'article au prix total
-    totalPrice += itemPrice;
-    
     updateTotalPrice();
+
+    // Envoyer la mise à jour au serveur
+    sendCartUpdate('add', icecreamId, toppingId, quantity, price, itemName);
 }
 
 
-// Lorsqu'un article est retiré du panier
-function removeItemFromCart(itemName, itemPrice) {
-    const existingItem = cartItems.find(item => item.name === itemName);
+// Remove an item from the cart
+function removeItemFromCart(icecreamId, toppingId, quantity, price, itemName) {
+    console.log("Removing from cart:", { icecreamId, toppingId, quantity, price, itemName });
+
+    // Find the existing item in the cart
+    const existingItem = cartItems.find(item => item.icecreamId === icecreamId && item.toppingId === toppingId);
     if (existingItem) {
-        // Si l'article existe déjà, diminuez la quantité
-        existingItem.quantity--;
-
-        // Vérifiez si la quantité est devenue zéro
-        if (existingItem.quantity === 0) {
-            // Si c'est le cas, retirez l'article du tableau cartItems
-            const itemIndex = cartItems.findIndex(item => item.name === itemName);
-            if (itemIndex !== -1) {
-                cartItems.splice(itemIndex, 1);
-            }
+        // Subtract the quantity
+        existingItem.quantity -= quantity;
+        if (existingItem.quantity <= 0) {
+            // Remove the item from the cart if the quantity falls to zero or below
+            cartItems = cartItems.filter(item => item !== existingItem);
         }
-
-        // Soustrayez le prix de l'article du prix total
-        totalPrice -= itemPrice;
-        // Mettez à jour l'affichage du prix total
-        updateTotalPrice();
-        // Mettez à jour l'affichage du panier
+        // Update the total price
+        totalPrice -= price * quantity;
+        // Ensure the total price does not go negative
+        if (totalPrice < 0) totalPrice = 0;
+        
+        // Update the cart display
         updateCartDisplay();
+        // Update the total price display
+        updateTotalPrice();
+
+        // Send the cart update to the server
+        sendCartUpdate('remove', icecreamId, toppingId, quantity, price, itemName);
+    } else {
+        console.error("Item not found in cart:", itemName);
     }
 }
 
+function sendCartUpdate(action, icecreamId, toppingId, quantity) {
+    const dataToSend = {
+        userId: userId, // Assurez-vous que userId est défini quelque part dans votre code
+        quantity: quantity,
+        icecreamId: icecreamId, // Envoyez null tel quel
+        toppingId: toppingId   // Envoyez null tel quel
+    };
 
+    console.log(`Sending data to server: ${JSON.stringify(dataToSend)}`);
 
+    fetch(`/cart/${action}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => console.log(`Server response for ${action}:`, data))
+    .catch(error => console.error('Error updating cart:', error));
+}
 
-
-// Fonction pour mettre à jour l'affichage du panier
 function updateCartDisplay() {
     const cartContent = document.getElementById("cart-content");
-    cartContent.innerHTML = ""; // Effacez le contenu précédent du panier
-
-    // Créez des sections distinctes pour les glaces et les toppings
-    const iceCreamSection = document.createElement("div");
-    iceCreamSection.classList.add("cart-section", "ice-cream-section");
-    iceCreamSection.innerHTML = "<h3>Icecream :</h3>"; // Ajoutez le titre "Glace"
-
-    const toppingSection = document.createElement("div");
-    toppingSection.classList.add("cart-section", "topping-section");
-    toppingSection.innerHTML = "<h3>Toppings :</h3>"; // Ajoutez le titre "Toppings"
+    cartContent.innerHTML = "";
 
     cartItems.forEach(item => {
-        const cartItem = document.createElement("div");
-        cartItem.classList.add("cart-item");
-        cartItem.innerHTML = `
-            <span class="item-quantity">${item.quantity}</span>
+        const cartItemDiv = document.createElement("div");
+        cartItemDiv.classList.add("cart-item");
+        cartItemDiv.innerHTML = `
             <span class="item-name">${item.name}</span>
-            <span class="item-price">$${(item.price.toFixed(2))*item.quantity}</span>
+            <span class="item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+            <span class="item-quantity">Qty: ${item.quantity}</span>
         `;
-
-        if (item.type === 'glace') {
-            iceCreamSection.appendChild(cartItem); // Ajoutez l'article à la section "glace"
-        } else if (item.type === 'topping') {
-            toppingSection.appendChild(cartItem); // Ajoutez l'article à la section "topping"
-        }
+        cartContent.appendChild(cartItemDiv);
     });
-
-    // Ajoutez les sections au panier
-    cartContent.appendChild(iceCreamSection);
-    cartContent.appendChild(toppingSection);
 }
-// Écoutez les clics sur les boutons "Acheter"
-const buyButtons = document.querySelectorAll(".buy-button");
-buyButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        const itemName = button.getAttribute("data-item-name");
-        const itemPrice = parseFloat(button.getAttribute("data-item-price"));
-        addToCart(itemName, itemPrice);
+
+function processCheckout() {
+    console.log('Processing checkout with items:', cartItems, 'and userId:', userId);
+
+    cartItems.forEach((item, index) => {
+        console.log(`Item ${index + 1}:`, item);
     });
+
+    fetch(`/cart/checkout`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, cartItems })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Checkout successful:', data);
+            // La redirection vers la page de connexion est gérée séparément
+        } else {
+            console.error('Checkout failed:', data.message);
+        }
+    })
+    .catch(error => console.error('Error during checkout:', error));
+}
+
+
+document.getElementById('checkout').addEventListener('click', () => {
+    console.log('Checkout clicked with userId:', userId);
+    processCheckout();
+    // Redirection vers la page de connexion après l'envoi de la commande
+    window.location.href = '/login';
 });
 
-// Exemple de bouton "Vider le panier"
 
 const clearCartButton = document.getElementById("clear-cart-button");
 clearCartButton.addEventListener("click", () => {
-    cartItems = []; // Videz le panier
-    totalPrice = 0.00; // Réinitialisez le prix total à zéro
-    updateCartDisplay(); // Mettez à jour l'affichage du panier
-    updateTotalPrice(); // Mettez à jour l'affichage du prix total
+    cartItems = [];
+    totalPrice = 0.00;
+    updateCartDisplay();
+    updateTotalPrice();
 });
-
-
-// Appelez updateCartDisplay pour afficher le panier initial lors du chargement de la page
-updateCartDisplay();
 
 const openCartButton = document.getElementById("open-cart-button");
 const cartModal = document.getElementById("cart-modal");
 const closeButton = document.querySelector(".close");
 
-// Ajoutez un gestionnaire d'événements pour ouvrir la fenêtre modale du panier
-openCartButton.addEventListener("click", () => {
-    cartModal.style.display = "block"; // Affiche la fenêtre modale
-});
+openCartButton.addEventListener("click", () => cartModal.style.display = "block");
+closeButton.addEventListener("click", () => cartModal.style.display = "none");
 
-// Ajoutez un gestionnaire d'événements pour fermer la fenêtre modale
-closeButton.addEventListener("click", () => {
-    cartModal.style.display = "none"; // Masque la fenêtre modale
-});
-
-
-
-document.getElementById('checkout').addEventListener('click', function() {
-    window.location.href = '/login';
-});

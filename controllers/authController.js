@@ -30,14 +30,35 @@ const login = async (req, res) => {
             console.log('Password match:', match);
 
             if (match) {
-                // Authentification réussie
-                res.json({ success: true, message: 'Authentification réussie' });
+                req.session.userId = user.user_id;
+                req.session.userName = user.user_name;
+                
+                // Vérifiez si tempOrderId est dans la session et mettez à jour la commande
+                if (req.session.tempOrderId) {
+                    const tempOrderId = req.session.tempOrderId;
+                    await conn.execute(
+                        `UPDATE orders SET user_id = ? WHERE order_id = ? AND user_id = 1`,
+                        [user.user_id, tempOrderId]
+                    );
+                    delete req.session.tempOrderId; // Supprimez-le après la mise à jour
+                    console.log("Mise à jour de l'orderId", tempOrderId, "avec le userId", user.user_id);
+                }
+                
+                req.session.save(err => {
+                    if (err) {
+                        console.error('Session save error:', err);
+                        res.status(500).json({ success: false, message: 'Erreur interne du serveur lors de la sauvegarde de la session.' });
+                    } else {
+                        console.log("Mise à jour de l'orderId", tempOrderId, "avec le userId", user.user_id);
+                        console.log('Session saved, redirecting to /checkout');
+                        res.redirect('/checkout');
+                    }
+                });
             } else {
-                // Le mot de passe ne correspond pas
+                console.log("Login failed for user:", email);
                 res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
             }
         } else {
-            // Aucun utilisateur trouvé avec cet email
             console.log(`No user found with email: ${email}`);
             res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
         }
@@ -49,6 +70,9 @@ const login = async (req, res) => {
     }
 };
 
+
 module.exports = {
     login
 };
+
+
