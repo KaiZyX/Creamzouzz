@@ -57,7 +57,7 @@ app.get('/checkout', function(req, res) {
 
 const authController = require('./controllers/authController');
 const registerController = require('./controllers/registerController'); // Importez le nouveau contrôleur
-
+const modifyController = require('./controllers/modifyController'); // Import du contrôleur pour la modification
 
 // Middleware pour analyser le corps des requêtes
 app.use(express.json());
@@ -67,3 +67,7 @@ app.use(express.urlencoded({ extended: true })); // Pour parser les corps des re
 app.post('/login', authController.login);
 app.post('/register', registerController.register); // Ajoutez la route d'inscription
 
+
+
+app.get('/modify', modifyController.renderModifyPage); // Route pour afficher la page de modification
+app.post('/modify', modifyController.modifyDatabase); // Route pour gérer la modification de la base de données
