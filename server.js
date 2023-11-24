@@ -107,6 +107,7 @@ app.use((req, res, next) => {
 
 // N'oubliez pas de définir SESSION_SECRET et JWT_SECRET dans votre fichier .env
 
-app.post('/add', addController.addData);
+app.post('/addIcecream', addController.addIcecream);
+app.post('/addTopping', addController.addTopping);
 
 

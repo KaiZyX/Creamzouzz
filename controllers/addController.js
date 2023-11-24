@@ -8,7 +8,7 @@ const dbConfig = {
     database: process.env.DB_DATABASE
 };
 
-async function addData(req, res) {
+async function addIcecream(req, res) {
     const {icecream_brand, icecream_name, icecream_baseprice,icecream_calory,icecream_stock,icecream_description,icecream_image } = req.body;
 
     try {
@@ -26,4 +26,22 @@ async function addData(req, res) {
     }
 }
 
-module.exports = { addData };
+async function addTopping(req, res) {
+    const {topping_name, topping_price,topping_calory,topping_stock,topping_description,topping_image } = req.body;
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [result] = await connection.execute(
+            'INSERT INTO Topping (topping_name, topping_price,topping_calory,topping_stock,topping_description,topping_image) VALUES ( ?,?,?,?,?,?)',
+            [topping_name, topping_price,topping_calory,topping_stock,topping_description,topping_image]
+        );
+        await connection.end();
+
+        res.send('Données ajoutées avec succès !');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erreur lors de l\'ajout des données');
+    }
+}
+
+module.exports = { addIcecream ,addTopping};
