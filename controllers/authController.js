@@ -30,12 +30,34 @@ const login = async (req, res) => {
             console.log('Password match:', match);
 
             if (match) {
-                // Authentification réussie
-                res.json({ success: true, message: 'Authentification réussie' });
+                console.log("User logged in, updating session and orders if needed.");
+                req.session.userId = user.user_id;
+                req.session.userName = user.user_name;
+                console.log('Session before save:', req.session);
+
+                if (req.session.tempOrderId) {
+                    const tempOrderId = req.session.tempOrderId;
+                    await conn.execute(
+                        `UPDATE orders SET user_id = ? WHERE order_id = ? AND user_id = -1`,
+                        [user.user_id, tempOrderId]
+                    );
+                    delete req.session.tempOrderId;
+                }
+            
+                req.session.save(err => {
+                    if (err) {
+                        console.error('Session save error:', err);
+                        res.status(500).json({ success: false, message: 'Erreur interne du serveur lors de la sauvegarde de la session.' });
+                    } else {
+                        console.log('Session saved, redirecting to /checkout');
+                        res.redirect('/checkout');
+                    }
+                });
             } else {
+                console.log("Login failed for user:", email);
                 // Le mot de passe ne correspond pas
                 res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
-            }
+            }            
         } else {
             // Aucun utilisateur trouvé avec cet email
             console.log(`No user found with email: ${email}`);
@@ -52,3 +74,5 @@ const login = async (req, res) => {
 module.exports = {
     login
 };
+
+

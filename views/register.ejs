@@ -8,6 +8,11 @@
     <section>
         <div class="form-box">
             <div class="form-value">
+                <% if (locals.errorMessage) { %>
+                  <div class="alert alert-danger" role="alert">
+                    <%= errorMessage %>
+                  </div>
+                <% } %>
                 <form action="/register" method="post">
                     <h2>Register</h2>
                     <div class="inputbox">
@@ -31,7 +36,7 @@
                       <label for="passwordInput">Password</label>
                     </div>
                     <button type="submit">Register</button>
-                  </form>
+                </form>
             </div>
         </div>
     </section>

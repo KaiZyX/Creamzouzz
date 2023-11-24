@@ -16,23 +16,14 @@ document.querySelector('form').addEventListener('submit', function(event) {
         body: JSON.stringify({ email, password }),
     })
     .then(response => {
-        // Vous devrez vérifier le statut de la réponse ici
-        if (!response.ok) {
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else if (!response.ok) {
             throw new Error(`Erreur: ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Si l'authentification est réussie, rediriger vers la page de checkout
-        if (data.success) {
-            window.location.href = '/checkout';
-        } else {
-            // Afficher un message d'erreur si les identifiants sont incorrects
-            alert('Échec de l\'authentification : ' + data.message);
         }
     })
     .catch(error => {
-        // Gérer les erreurs de réseau ou de communication avec le serveur ici
         console.error('Il y a eu un problème avec l\'opération fetch: ' + error.message);
     });
+    
 });
