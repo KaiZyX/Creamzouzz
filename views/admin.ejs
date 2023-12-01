@@ -1,9 +1,14 @@
-<!-- addData.ejs -->
+<!-- admin.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Fichier CSS personnalisé -->
+    <link rel="stylesheet" href="/css/index.css">
+    <!-- Ajoutez le code d'importation de la police Poppins ici -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap">
     <title>Ajouter des données</title>
 
     <style>
@@ -17,6 +22,28 @@
 <body>
     <button onclick="toggleForm('icecreamForm')">Ajouter une glace</button>
     <button onclick="toggleForm('toppingForm')">Ajouter un topping</button>
+    <button id="showIcecreamsBtn">Supprimer des glaces</button>
+    <section id="icecreamsSection" class="container" style="display: none;">
+        <h2>ICECREAMS</h2>
+        <div class="row">
+            <% icecreams.forEach(icecream => { %>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="<%= icecream.icecream_image %>" class="card-img-container" alt="<%= icecream.icecream_name %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= icecream.icecream_name %></h5>
+                            <p class="card-text"><%= icecream.icecream_description %></p>
+                            <p class="card-text">Price : $<%= icecream.icecream_baseprice %></p>
+                            <!-- Formulaire pour supprimer la glace -->
+                            
+                            <button class="btn btn-danger" onclick="deleteIcecream(<%= icecream.icecream_id %>)">Remove from DB</button>                    
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </section>
+    
     
     
     <form id="icecreamForm" action="/addIcecream" method="POST">
@@ -82,7 +109,18 @@
     </form>
 
     <script>
+
+        const showIcecreamsBtn = document.getElementById('showIcecreamsBtn');
+        const icecreamsSection = document.getElementById('icecreamsSection');
         let currentForm = null;
+
+        showIcecreamsBtn.addEventListener('click', () => {
+            // Vérifie si la section est déjà affichée ou non
+            const isDisplayed = icecreamsSection.style.display === 'block';
+            
+            // Affiche ou masque la section en fonction de son état actuel
+            icecreamsSection.style.display = isDisplayed ? 'none' : 'block';
+        });
 
         function toggleForm(formId) {
             const form = document.getElementById(formId);
@@ -95,5 +133,7 @@
             currentForm = form.style.display === 'none' ? null : form;
         }
     </script>
+   
+
 </body>
 </html>

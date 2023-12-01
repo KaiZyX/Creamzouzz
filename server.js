@@ -34,7 +34,7 @@ const dbConfig = {
 const authController = require('./controllers/authController');
 const registerController = require('./controllers/registerController');
 const CartController = require('./controllers/CartController');
-const addController = require('./controllers/addController');
+const adminController = require('./controllers/adminController');
 
 // Middleware pour vérifier si l'utilisateur est connecté avant d'ajouter au panier
 function ensureLoggedIn(req, res, next) {
@@ -66,6 +66,23 @@ app.get('/', async (request, response) => {
         response.status(500).send('Erreur Interne du Serveur');
     }
 });
+app.get('/admin', async (request, response) => {
+    try {
+        const conn = await mysql.createConnection(dbConfig);
+        const [icecreams] = await conn.execute('SELECT * FROM IceCream');
+        const [toppings] = await conn.execute('SELECT * FROM Topping');
+        await conn.end();
+
+        response.render('admin', { 
+            icecreams: icecreams,
+            toppings: toppings,
+            user: request.session.userID // Ajoutez l'ID utilisateur à l'objet pour la vue, si connecté
+        });
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('Erreur Interne du Serveur');
+    }
+});
 
 app.get('/login', function(req, res) {
     res.render('login'); 
@@ -79,8 +96,8 @@ app.get('/checkout', ensureLoggedIn, function(req, res) {
     // Utilisez ensureLoggedIn pour protéger cette route
     res.render('checkout'); 
 });
-app.get('/add', function(req, res) {
-    res.render('addData'); 
+app.get('/admin', function(req, res) {
+    res.render('admin'); 
 });
 
 app.post('/login', authController.login);
@@ -107,7 +124,5 @@ app.use((req, res, next) => {
 
 // N'oubliez pas de définir SESSION_SECRET et JWT_SECRET dans votre fichier .env
 
-app.post('/addIcecream', addController.addIcecream);
-app.post('/addTopping', addController.addTopping);
-
-
+app.post('/addIcecream', adminController.addIcecream);
+app.post('/addTopping', adminController.addTopping);
