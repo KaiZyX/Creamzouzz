@@ -44,4 +44,23 @@ async function addTopping(req, res) {
     }
 }
 
-module.exports = { addIcecream ,addTopping};
+async function deleteIcecream(req, res) {
+    const icecreamId = req.body.icecreamId; // Récupère l'ID de la glace à supprimer depuis la requête
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [result] = await connection.execute(
+            'DELETE FROM IceCream WHERE icecream_id = ?',
+            [icecreamId]
+        );
+        await connection.end();
+
+        res.send('Glace supprimée avec succès !');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erreur lors de la suppression de la glace');
+    }
+}
+
+module.exports = { addIcecream, addTopping, deleteIcecream };
+

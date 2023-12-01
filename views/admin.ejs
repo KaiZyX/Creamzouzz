@@ -132,6 +132,26 @@
             form.style.display = (form.style.display === 'none') ? 'block' : 'none';
             currentForm = form.style.display === 'none' ? null : form;
         }
+
+
+        async function deleteIcecream(icecreamId) {
+        try {
+            const response = await fetch('/deleteIcecream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ icecreamId })
+            });
+
+            const result = await response.text();
+            alert(result); // Affiche un message pour indiquer la réussite ou l'échec de la suppression
+            location.reload(); // Recharge la page pour afficher les changements
+        } catch (error) {
+            console.error(error);
+            alert('Erreur lors de la suppression de la glace');
+        }
+    }
     </script>
    
 
