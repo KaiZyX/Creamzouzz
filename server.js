@@ -127,3 +127,4 @@ app.use((req, res, next) => {
 app.post('/addIcecream', adminController.addIcecream);
 app.post('/addTopping', adminController.addTopping);
 app.post('/deleteIcecream', adminController.deleteIcecream);
+app.post('/deleteTopping', adminController.deleteTopping);
