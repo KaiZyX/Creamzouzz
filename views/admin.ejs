@@ -3,7 +3,9 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom CSS file -->
@@ -18,13 +20,32 @@
             display: none;
         }
     </style>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <button onclick="toggleForm('icecreamForm')">Add Iceceam</button>
+            </li>
+            <li class="nav-item">
+                <button onclick="toggleForm('toppingForm')">Add Topping</button>
+            </li>
+            <li class="nav-item">
+                <span class="blue-letter">A</span><span class="pink-letters">dmin Page</span>
+            </li>
+            <li class="nav-item">
+                <button id="showIcecreamsBtn">Edit/Remove</button>
+            </li>
 
+            <li class="nav-item">
+                <a href="/" class="btn btn-primary">Accueil</a>
+            </li>
+            
+            
+        </ul>
+    </nav>
 </head>
 
 <body>
-    <button onclick="toggleForm('icecreamForm')">Add Iceceam</button>
-    <button onclick="toggleForm('toppingForm')">Add Topping</button>
-    <button id="showIcecreamsBtn">Remove Icecream/Topping</button>
+    
     <section id="icecreamsSection" class="container" style="display: none;">
         <h2>ICECREAMS</h2>
         <div class="row">
