@@ -28,7 +28,7 @@
     <section id="icecreamsSection" class="container" style="display: none;">
         <h2>ICECREAMS</h2>
         <div class="row">
-            <% icecreams.forEach(icecream => { %>
+            <% icecreams.forEach(icecream=> { %>
                 <div class="col-md-4">
                     <div class="card">
                         <img src="<%= icecream.icecream_image %>" class="card-img-container"
@@ -43,18 +43,19 @@
                             <p class="card-text">Price : $<%= icecream.icecream_baseprice %>
                             </p>
                             <!-- Form to delete icecream -->
-                            <button class="btn btn-danger" onclick="deleteIcecream(<%= icecream.icecream_id %>)">Remove
-                                from DB</button>
+                            <button class="btn btn-primary" onclick="modifyIcecream(<%= icecream.icecream_id %>)">Modify </button>
+                            <button class="btn btn-danger" onclick="deleteIcecream(<%= icecream.icecream_id %>)">Remove from DB</button>
+                            
                         </div>
                     </div>
                 </div>
-            <% }); %>
+                <% }); %>
         </div>
     </section>
     <section id="toppingsSection" class="container" style="display: none;">
         <h2>TOPPINGS</h2>
         <div class="row">
-            <% toppings.forEach(topping => { %>
+            <% toppings.forEach(topping=> { %>
                 <div class="col-md-4">
                     <div class="card">
                         <img src="<%= topping.topping_image %>" class="card-img-container"
@@ -63,15 +64,18 @@
                             <h5 class="card-title">
                                 <%= topping.topping_name %>
                             </h5>
+                            <p class="card-text">
+                                <%= topping.topping_description %>
+                            </p>
                             <p class="card-text">Price: $<%= topping.topping_price %>
                             </p>
                             <!-- Form to delete topping -->
-                            <button class="btn btn-danger" onclick="deleteTopping(<%= topping.topping_id %>)">Delete
-                                from DB</button>
+                            <button class="btn btn-primary" onclick="modifyTopping(<%= topping.topping_id %>)">Modify</button>
+                            <button class="btn btn-danger" onclick="deleteTopping(<%= topping.topping_id %>)">Remove from DB</button>
                         </div>
                     </div>
                 </div>
-            <% }); %>
+                <% }); %>
         </div>
     </section>
 
@@ -137,6 +141,68 @@
         <br>
 
         <button type="submit">Add Topping</button>
+    </form>
+
+    <form id="modifyIcecreamForm" action="/modifyIcecream" method="POST" style="display: none;">
+        
+        <h1>Modify Icecream</h1>
+        <label for="icecream_brand">Icecream Brand:</label>
+        <input type="number" id="icecream_brand" name="icecream_brand" required>
+        <br>
+
+        <label for="icecream_name">Icecream Name:</label>
+        <input type="text" id="icecream_name" name="icecream_name" required>
+        <br>
+
+        <label for="icecream_baseprice">Icecream Price:</label>
+        <input type="number" id="icecream_baseprice" name="icecream_baseprice" required>
+        <br>
+
+        <label for="icecream_calory">Icecream Calory:</label>
+        <input type="number" id="icecream_calory" name="icecream_calory" required>
+        <br>
+
+        <label for="icecream_stock">Icecream Stock:</label>
+        <input type="number" id="icecream_stock" name="icecream_stock" required>
+        <br>
+
+        <label for="icecream_description">Icecream Description:</label>
+        <input type="text" id="icecream_description" name="icecream_description" required>
+        <br>
+
+        <label for="icecream_image">Icecream Image:</label>
+        <input type="text" id="icecream_image" name="icecream_image" required>
+        <br>
+
+        <button type="submit">Update Icecream</button>
+    </form>
+
+    <form id="modifyToppingForm" action="/modifyTopping" method="POST" style="display: none;">
+        <h1>Modify Topping</h1>
+        <label for="topping_name">Topping Name:</label>
+        <input type="text" id="topping_name" name="topping_name" required>
+        <br>
+
+        <label for="topping_price">Topping Price:</label>
+        <input type="number" id="topping_price" name="topping_price" required>
+        <br>
+
+        <label for="topping_calory">Topping Calory:</label>
+        <input type="number" id="topping_calory" name="topping_calory" required>
+        <br>
+
+        <label for="topping_stock">Topping Stock:</label>
+        <input type="number" id="topping_stock" name="topping_stock" required>
+        <br>
+
+        <label for="topping_description">Topping Description:</label>
+        <input type="text" id="topping_description" name="topping_description" required>
+        <br>
+
+        <label for="topping_image">Topping Image:</label>
+        <input type="text" id="topping_image" name="topping_image" required>
+        <br>
+        <button type="submit">Update Topping</button>
     </form>
 
     <script>
@@ -213,6 +279,36 @@
                 console.error(error);
                 alert('Error deleting topping');
             }
+        }
+
+        function modifyIcecream(icecreamId) {
+            hideOtherForms();
+
+            const modifyIcecreamForm = document.getElementById('modifyIcecreamForm');
+            modifyIcecreamForm.style.display = 'block';
+            modifyIcecreamForm.action = `/modifyIcecream/${icecreamId}`;
+            
+            // Fetch icecream details using icecreamId and pre-fill the form fields for modification
+            // ...
+        }
+
+        function modifyTopping(toppingId) {
+            hideOtherForms();
+
+            const modifyToppingForm = document.getElementById('modifyToppingForm');
+            modifyToppingForm.style.display = 'block';
+            modifyToppingForm.action = `/modifyTopping/${toppingId}`;
+            
+            // Fetch topping details using toppingId and pre-fill the form fields for modification
+            // ...
+        }
+
+        function hideOtherForms() {
+            const modifyIcecreamForm = document.getElementById('modifyIcecreamForm');
+            const modifyToppingForm = document.getElementById('modifyToppingForm');
+
+            modifyIcecreamForm.style.display = 'none';
+            modifyToppingForm.style.display = 'none';
         }
     </script>
 

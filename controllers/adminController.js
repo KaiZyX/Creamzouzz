@@ -80,5 +80,46 @@ async function deleteTopping(req, res) {
     }
 }
 
-module.exports = { addIcecream, addTopping, deleteIcecream, deleteTopping };
+
+
+
+async function modifyIcecream(req, res) {
+    const { icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image } = req.body;
+    const icecreamId = req.params.icecreamId; // Récupère l'ID de la glace à modifier depuis la requête
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [result] = await connection.execute(
+            'UPDATE IceCream SET icecream_brand = ?, icecream_name = ?, icecream_baseprice = ?, icecream_calory = ?, icecream_stock = ?, icecream_description = ?, icecream_image = ? WHERE icecream_id = ?',
+            [icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image, icecreamId]
+        );
+        await connection.end();
+
+        res.send('Données de la glace modifiées avec succès !');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erreur lors de la modification des données de la glace');
+    }
+}
+
+async function modifyTopping(req, res) {
+    const { topping_name, topping_price, topping_calory, topping_stock, topping_description, topping_image } = req.body;
+    const toppingId = req.params.toppingId; // Récupère l'ID du topping à modifier depuis la requête
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [result] = await connection.execute(
+            'UPDATE Topping SET topping_name = ?, topping_price = ?, topping_calory = ?, topping_stock = ?, topping_description = ?, topping_image = ? WHERE topping_id = ?',
+            [topping_name, topping_price, topping_calory, topping_stock, topping_description, topping_image, toppingId]
+        );
+        await connection.end();
+
+        res.send('Données du topping modifiées avec succès !');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erreur lors de la modification des données du topping');
+    }
+}
+
+module.exports = { addIcecream, addTopping, deleteIcecream, deleteTopping, modifyIcecream, modifyTopping };
 

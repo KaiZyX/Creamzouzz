@@ -128,3 +128,5 @@ app.post('/addIcecream', adminController.addIcecream);
 app.post('/addTopping', adminController.addTopping);
 app.post('/deleteIcecream', adminController.deleteIcecream);
 app.post('/deleteTopping', adminController.deleteTopping);
+app.post('/modifyIcecream/:icecreamId', adminController.modifyIcecream);
+app.post('/modifyTopping/:toppingId', adminController.modifyTopping);
