@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Mettez vos balises head ici -->
+</head>
+<body>
+    <!-- Votre contenu HTML -->
+    <h1>Informations de l'utilisateur</h1>
+    <% if (userData) { %>
+        <p>Nom: <%= userData.user_name %></p>
+        <p>Email: <%= userData.user_email %></p>
+        <!-- Affichez d'autres informations de l'utilisateur ici -->
+    <% } else { %>
+        <p>Aucune information trouvée pour cet utilisateur.</p>
+    <% } %>
+</body>
+</html>

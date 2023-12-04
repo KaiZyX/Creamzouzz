@@ -78,6 +78,7 @@ app.get('/', async (request, response) => {
 });
 
 
+
 // Ajout de la route `/account` 
 app.get('/account', async (req, res) => {
     if (req.session.userId) {
@@ -95,7 +96,7 @@ app.get('/account', async (req, res) => {
                     res.redirect('/admin');
                 } else {
                     console.log(`Client User ID: ${req.session.userId} - Accessing account.ejs`);
-                    res.render('account.ejs', { user: req.session.userId }); // Page de compte standard pour les clients
+                    res.render('/modifyAccount', { user: req.session.userId }); // Page de compte standard pour les clients
                 }
             } else {
                 console.log(`No user found with ID: ${req.session.userId} - Redirecting to login`);
@@ -118,6 +119,27 @@ app.get('/account', async (req, res) => {
 });
 
 
+app.get('/modifyAccount', async (request, response) => {
+    try {
+        const userId = request.session.userId; // Récupère l'ID de l'utilisateur depuis la session
+        
+
+        const conn = await mysql.createConnection(dbConfig);
+        const [userData] = await conn.execute('SELECT * FROM User WHERE user_id = ?', [userId]);
+        await conn.end();
+        
+        
+
+        // Passer les données de l'utilisateur à la vue
+        response.render('modifyAccount', { userData: userData });
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('Erreur Interne du Serveur');
+    }
+});
+
+
+  
 
 app.get('/admin', async (request, response) => {
     try {
