@@ -10,29 +10,26 @@ document.querySelector('form').addEventListener('submit', function(event) {
     // Envoyer une requête POST au serveur avec l'email et le mot de passe
     fetch('/login', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
     })
     .then(response => {
-        // Vous devrez vérifier le statut de la réponse ici
-        if (!response.ok) {
-            throw new Error(`Erreur: ${response.statusText}`);
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else if (!response.ok) {
+            return response.json(); // Traiter la réponse JSON pour les erreurs
         }
-        return response.json();
     })
     .then(data => {
-        // Si l'authentification est réussie, rediriger vers la page de checkout
-        if (data.success) {
-            window.location.href = '/checkout';
-        } else {
-            // Afficher un message d'erreur si les identifiants sont incorrects
-            alert('Échec de l\'authentification : ' + data.message);
+        if (data && !data.success) {
+            // Afficher le message d'erreur
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.textContent = data.message;
+            errorMessageElement.style.display = 'block';
         }
     })
     .catch(error => {
-        // Gérer les erreurs de réseau ou de communication avec le serveur ici
         console.error('Il y a eu un problème avec l\'opération fetch: ' + error.message);
     });
+    
 });

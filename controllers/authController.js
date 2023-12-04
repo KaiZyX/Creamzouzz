@@ -30,14 +30,23 @@ const login = async (req, res) => {
             console.log('Password match:', match);
 
             if (match) {
-                // Authentification réussie
-                res.json({ success: true, message: 'Authentification réussie' });
+                req.session.userId = user.user_id;
+                req.session.userName = user.user_name;
+                
+        
+                req.session.save(err => {
+                    if (err) {
+                        console.error('Session save error:', err);
+                        res.status(500).json({ success: false, message: 'Erreur interne du serveur lors de la sauvegarde de la session.' });
+                    } else {
+                        res.redirect('/');// redirige vers index
+                    }
+                });
             } else {
-                // Le mot de passe ne correspond pas
+                console.log("Login failed for user:", email);
                 res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
             }
         } else {
-            // Aucun utilisateur trouvé avec cet email
             console.log(`No user found with email: ${email}`);
             res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
         }
@@ -49,6 +58,9 @@ const login = async (req, res) => {
     }
 };
 
+
 module.exports = {
     login
 };
+
+

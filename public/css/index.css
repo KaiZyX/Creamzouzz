@@ -1,21 +1,93 @@
 
-/* styles.css */
-
-
-/*kevin to main*/
-
-/*kevin2 to main*/
-
-
-/*kevin3 to main*/
-
-
-
-.card-img-cointaner {
-  height: 300px; /* Ajustez la hauteur selon vos besoins */
-  object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
+/* Masquez le panier par défaut en le plaçant à l'extérieur de la fenêtre sur la droite */
+.cart-modal {
+  position: fixed;
+  top: 0;
+  width: 280px; /* Largeur de votre panier */
+  left: 1635px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -6px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+  transition: right 0.3s;
+  display: none;
+  flex-direction: column;
 }
 
+/* Lorsque .active est ajouté au panier, il se déplace en vue */
+.cart-modal.active {
+  right: 0;
+  display: block;
+}
+
+
+/* Style pour le contenu du panier */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 3px solid #EAEAEA;
+  font-size: 0.8rem;
+}
+
+/* Style pour les boutons et les actions */
+.cart-actions {
+  padding: 10px;
+  text-align: center;
+}
+
+.cart-actions button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: #FFD700; /* Bouton jaune Amazon */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Bouton de fermeture */
+.cart-close {
+  align-self: flex-end;
+  margin-top: -4px;
+  margin-right: 1px;
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.cart-item-actions button {
+  /* Styles pour les boutons Modifier et Supprimer */
+  background: none;
+  border: none;
+  color: #007bff; /* Couleur bleue pour les actions */
+  cursor: pointer;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.cart-total {
+  margin-top: 50px; /* Pour pousser tout le reste vers le bas */
+}
+
+
+
+
+
+
+
+
+
+/* Reste du css pour la page */ 
 
 .main{
   margin-top: 200px; /* Ajoutez de l'espace entre les deux sections */
@@ -24,11 +96,6 @@
 
 .container  {
   margin-bottom: 200px; /* Ajoutez de l'espace entre les deux sections */
-}
-
-.card-img-main {
-  height: 500px; /* Ajustez la hauteur selon vos besoins */
-  object-fit: cover; /* Redimensionne l'image tout en conservant son ratio d'aspect */
 }
 
 /* Nav Bar */
@@ -96,16 +163,6 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.cart-modal {
-  width: 450px; /* Largeur souhaitée */
-  max-height: 80vh; /* Hauteur maximale de 80% de la hauteur de la vue */
-  overflow-y: auto; /* Ajoute une barre de défilement vertical si nécessaire */
-  position: fixed;
-  top: 5%;
-  left: 100%;
-  transform: translate(-100%, -5%);
-}
-
 
 #total-price {
   font-size: 24px; /* Taille de police plus grande */
@@ -122,10 +179,6 @@ text-align: center;
 margin-top: 10px;
 margin-bottom: 15px;
 }
-
-
-
-
 
 .parallax {
   position: relative;
@@ -159,4 +212,118 @@ margin-bottom: 15px;
   width: 150%;
   margin-left: -250px;
   margin-top: -50px;
+}
+
+/*****/
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .cart-modal {
+    width: 100vw; /* Full width on small screens */
+  }
+  .navbar {
+    margin: 0 5%; /* Adjust margin for small screens */
+  }
+  .navbar ul {
+    flex-direction: column; /* Stack nav items vertically */
+  }
+  .navbar li {
+    margin-bottom: 10px; /* Add space between nav items */
+  }
+  .navbar a {
+    font-size: 16px; /* Adjust font size for readability */
+  }
+  .main, .container, .about {
+    margin-top: 100px; /* Adjust top margin */
+    margin-bottom: 50px; /* Adjust bottom margin */
+  }
+  .col-md-6 img {
+    width: 100%; /* Full width images */
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1199px) {
+  .cart-modal {
+    width: 60vw; /* Adjust width for medium screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .cart-modal {
+    width: 280px; /* Fixed width for large screens */
+    right: -400px; /* Start offscreen to the right */
+    transition: right 0.3s; /* Smooth transition for cart */
+  }
+  .cart-modal.active {
+    right: 0; /* Slide in view */
+  }
+  .navbar {
+    margin: 20px auto; /* Centered margin with auto */
+    width: 68%; /* Max width of navbar */
+  }
+  .navbar li {
+    margin: 0 27px; /* Adjust list item spacing */
+  }
+}
+
+
+/* Ajustements pour les écrans de téléphone */
+@media (max-width: 480px) {
+  .cart-modal {
+    width: 100vw; /* Utilisez toute la largeur de l'écran pour le panier */
+    left: 100; /* Assurez-vous que le panier apparaisse du côté droit */
+    transition: none; /* Pas de transition pour les petits écrans */
+  }
+
+  .navbar {
+    padding: 5px 10px; /* Réduisez le padding pour économiser de l'espace */
+    margin: 2px 0; /* Réduisez la marge autour de la navbar */
+  }
+  
+  .navbar li {
+    width: 100%; /* Étendez les éléments de navigation à toute la largeur */
+    margin: 5px 0; /* Réduisez la marge entre les éléments */
+  }
+
+  .navbar a {
+    font-size: 14px; /* Réduisez la taille de la police pour les petits écrans */
+  }
+
+  /* Ajustements pour les images et les marges dans les sections */
+  .main, .container, .about {
+    margin: 50px 0; /* Réduisez les marges supérieure et inférieure */
+  }
+
+  .col-md-6 img {
+    width: 100%; /* Pleine largeur pour les images */
+    margin: 0; /* Réinitialisez les marges pour les images */
+  }
+
+  .blue-letter {
+    color: #62C3E7;
+    font-family: 'Poppins', sans-serif; /* Police différente */
+    font-size: 25px; /* Taille de texte plus grande */
+  }
+  
+  /* Style pour le reste du mot en rose */
+  .pink-letters {
+    color: #F195B2; /* Couleur rose */
+    font-family: 'Poppins', sans-serif; /* Police différente */
+    font-size: 25px; /* Taille de texte plus grande */
+  }
+  
+}
+
+
+/* Bootstrap image responsiveness */
+.card-img-container, .card-img-main {
+  width: 100%;
+  height: auto;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
 }
