@@ -63,11 +63,10 @@ CREATE TABLE User (
     user_id INT auto_increment PRIMARY KEY,
     user_created datetime,
     user_name VARCHAR(255) NOT NULL,
-    user_email VARCHAR(255) NOT NULL unique, 
+    user_email VARCHAR(255) NOT NULL unique,
     user_address VARCHAR(255) NOT NULL,
-    user_password VARCHAR(255) 
-    
-    
+    user_password VARCHAR(255),
+    user_role ENUM('client', 'admin') DEFAULT 'client'
 );
 
 ALTER TABLE User MODIFY COLUMN user_created DATETIME DEFAULT CURRENT_TIMESTAMP;

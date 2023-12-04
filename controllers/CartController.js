@@ -104,8 +104,6 @@ exports.removeFromCart = async (req, res) => {
 };
 
 
-
-
 exports.checkout = async (req, res) => {
     let conn; // Déclaration de la variable de connexion ici
     console.log("Checkout request received with body:", req.body);

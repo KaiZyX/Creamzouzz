@@ -16,6 +16,14 @@
     <header> 
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item" id="Account-button">
+                    <% if (user) { %>
+                        <a href="/account">Account</a>
+                    <% } else { %>
+                        <a  href="/login">Login</a>
+                    <% } %>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#main">Main</a>
                 </li>
@@ -33,33 +41,36 @@
                 </li>
                 <!-- Ajoutez l'icône du panier à droite -->
                 <li class="nav-item cart-icon">
-                    <a class="nav-link" href="#" id="open-cart-button">
+                    <a class="nav-link" id="open-cart-button">
                         <img src="https://img.icons8.com/?size=48&id=RZVvpEvg0RO9&format=png" alt="Panier" width="50" height="50">
                     </a>
                 </li>
             </ul>
         </nav>
-        
     </header>
+
+
     <div id="cart-modal" class="modal cart-modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Your cart</h2>
-            <div id="cart-content">
-                <div class="cart-section ice-cream-section">
-                    <h3>Icecream</h3> <!-- Titre de la section "Glace" -->
-                    <!-- Contenu du panier pour les glaces -->
-                </div>
-                <div class="cart-section topping-section">
-                    <h3>Toppings</h3> <!-- Titre de la section "Toppings" -->
-                    <!-- Contenu du panier pour les toppings -->
-                </div>
-            </div>
-            <p id="total-price">Total Price : $0.00</p>
-            <button id="clear-cart-button">Empty cart</button>
-            <button id="checkout">Pass command</button>
+        <div class="cart-total">
+            <span id="total-price">Prix total : $0.00</span>
+        </div>
+        <!-- Le bouton pour fermer la modal du panier -->
+        
+        <div class="cart-close">
+            <button id="cart-close">&times;</button>
+        </div>
+
+        <div id="cart-content">
+            <!-- Les articles du panier seront ajoutés ici par updateCartDisplay() -->
+        </div>
+        <div class="cart-actions">
+            <button id="checkout">Passer à la caisse</button>
+            <button id="clear-cart-button">Vider le panier</button>
         </div>
     </div>
+    
+
+      
     
     <section id="main" class="main">
         <section class="parallax">
@@ -67,7 +78,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="https://cdn.discordapp.com/attachments/1153692859111854202/1156258003381665872/creamgouzz_logo.png?ex=6537e92e&is=6525742e&hm=b186c96683d5f2d753190a397d59026b4f6e9e374e5cb933e111bba9909c582e&" class="card-img-main" alt="Image de glace">
+                            <img src="https://cdn.discordapp.com/attachments/1153692859111854202/1156258003381665872/creamgouzz_logo.png?ex=6537e92e&is=6525742e&hm=b186c96683d5f2d753190a397d59026b4f6e9e374e5cb933e111bba9909c582e&" class="card-img-main img-fluid" alt="Image de glace">
                         </div>
                         <div class="col-md-6">
                             <h1>Ice Cream Shop</h1>
@@ -87,7 +98,7 @@
             <% icecreams.forEach(icecream => { %>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="<%= icecream.icecream_image %>" class="card-img-container" alt="<%= icecream.icecream_name %>">
+                        <img src="<%= icecream.icecream_image %>" class="card-img-container img-fluid" alt="<%= icecream.icecream_name %>">
                         <div class="card-body">
                             <h5 class="card-title"><%= icecream.icecream_name %></h5>
                             <p class="card-text"><%= icecream.icecream_description %></p>
@@ -113,7 +124,7 @@
                 <% toppings.forEach(topping => { %>
                     <div class="col-md-4">
                         <div class="card">
-                            <img src="<%= topping.topping_image %>" class="card-img-container" alt="<%= topping.topping_name %>">
+                            <img src="<%= topping.topping_image %>" class="card-img-container img-fluid" alt="<%= topping.topping_name %>">
                             <div class="card-body">
                                 <h5 class="card-title"><%= topping.topping_name %></h5>
                                 <p class="card-text"><%= topping.topping_description %></p>
@@ -136,21 +147,21 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="img/Anis.jpg" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                        <img src="img/Anis.jpg" class="img-fluid" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
                     </div>
                     <h4>Anis DALI-AHMED</h4>
                     <p>Dofus Player</p>
                 </div>
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="img/Louka.jpg" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
-                    </div>
+                        <img src="img/Louka.jpg" class="img-fluid"alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                    </div> 
                     <h4>Louka MILAN</h4>
                     <p>Lebron James</p>
                 </div>
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
-                        <img src="img/Kevin.png" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
+                        <img src="img/Kevin.png" class="img-fluid" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
                     </div>
                     <h4>Kevin TRINH</h4>
                     <p> 北方话</p>
@@ -166,10 +177,20 @@
         </a>
     </footer>
     
+    <script> 
+        var userIsLoggedIn = <%= !!user %>; 
+    </script>
+    
+    <script>
+        var userId = <%- JSON.stringify(user ? user.userID : null) %>;
+    </script>
+
     <!-- Intégration de Bootstrap JavaScript (jQuery et Popper.js requis) -->
-    <script src="/js/index.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="/js/index.js"></script>
 </body>
 </html>

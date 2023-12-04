@@ -8,6 +8,7 @@ const dbConfig = {
     database: process.env.DB_DATABASE
 };
 
+
 // La fonction d'inscription exportée
 exports.register = async (req, res) => {
     let conn; // Déclarez conn en dehors pour qu'elle soit accessible dans finally
@@ -17,10 +18,10 @@ exports.register = async (req, res) => {
 
         const { username, email, address, password } = req.body;
 
-        // Hash the password before inserting into database
+        // hash le password avant insertion dans la BDD
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new database connection
+        // Creation de nouvelle connection a la bdd
         conn = await mysql.createConnection(dbConfig);
 
         // Vérifier si l'email existe déjà
@@ -32,41 +33,36 @@ exports.register = async (req, res) => {
           }
           
 
-        // Log the attempt to register with email and name for debugging
+        // Enregistrer la tentative d'enregistrement avec l'adresse électronique et le nom pour le débogage
         console.log('Attempting to register with:', email, username);
 
-        // Execute the insertion query with the provided data
+        // Exécute la requête d'insertion avec les données fournies
         const [result] = await conn.execute(
             'INSERT INTO User (user_name, user_email, user_address, user_password) VALUES (?, ?, ?, ?)', 
             [username, email, address, hashedPassword]
         );
 
-        // Check if the insert was successful
+        // Vérifier si l'insertion a réussi
         console.log('Insert result:', result);
 
-        // ... (previous code remains unchanged)
 
         if (result.affectedRows) {
             console.log('Registration successful for:', email);
-            // Log the user in by setting session details
-            req.session.userId = result.insertId; // Assuming the result has an insertId
+            // Enregistrer l'utilisateur en définissant les détails de la session
+            req.session.userId = result.insertId; // En supposant que le résultat ait un insertId
             req.session.userName = username;
-            // Redirect the user to the checkout page
-            console.log("Mise à jour de l'orderId", tempOrderId, "avec le userId", user.user_id);
+            // Rediriger l'utilisateur vers la page de paiement
 
-            res.redirect('/checkout');
+            res.redirect('/login');
         } else {
             console.log('Registration failed for:', email);
             res.status(400).json({ success: false, message: 'Inscription échouée' });
         }
 
-        // ... (rest of the code remains unchanged)
-
     } catch (error) {
         console.error('Registration Error:', error);
-        res.status(500).json({ success: false, message: 'Erreur interne du serveur' });
+        res.status(500).json({ success: false, message: 'Erreur interne du serveur', error: error.message });
     } finally {
-        // Ensure the database connection is closed
         if (conn) {
             try {
                 await conn.end();

@@ -33,25 +33,13 @@ const login = async (req, res) => {
                 req.session.userId = user.user_id;
                 req.session.userName = user.user_name;
                 
-                // Vérifiez si tempOrderId est dans la session et mettez à jour la commande
-                if (req.session.tempOrderId) {
-                    const tempOrderId = req.session.tempOrderId;
-                    await conn.execute(
-                        `UPDATE orders SET user_id = ? WHERE order_id = ? AND user_id = 1`,
-                        [user.user_id, tempOrderId]
-                    );
-                    delete req.session.tempOrderId; // Supprimez-le après la mise à jour
-                    console.log("Mise à jour de l'orderId", tempOrderId, "avec le userId", user.user_id);
-                }
-                
+        
                 req.session.save(err => {
                     if (err) {
                         console.error('Session save error:', err);
                         res.status(500).json({ success: false, message: 'Erreur interne du serveur lors de la sauvegarde de la session.' });
                     } else {
-                        console.log("Mise à jour de l'orderId", tempOrderId, "avec le userId", user.user_id);
-                        console.log('Session saved, redirecting to /checkout');
-                        res.redirect('/checkout');
+                        res.redirect('/');// redirige vers index
                     }
                 });
             } else {
