@@ -55,6 +55,7 @@ const authController = require('./controllers/authController');
 const registerController = require('./controllers/registerController');
 const CartController = require('./controllers/CartController');
 const adminController = require('./controllers/adminController');
+const accountController = require('./controllers/accountController');
 const { Console } = require('console');
 
 
@@ -173,6 +174,9 @@ app.post('/deleteIcecream', adminController.deleteIcecream);
 app.post('/deleteTopping', adminController.deleteTopping);
 app.post('/modifyIcecream/:icecreamId', adminController.modifyIcecream);
 app.post('/modifyTopping/:toppingId', adminController.modifyTopping);
+
+
+app.post('/modifyUser', accountController.modifyUser);
 
 
 
