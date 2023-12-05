@@ -1,12 +1,45 @@
-<!-- myAccount.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        #modifyUserForm {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/myAccount.css">
+    <title>My Account - Icreamzouz</title>
+</head>
+<body>
+    <div class="my-account-container">
+        <div class="user-info">
+            <h2>User Information</h2>
+            <% if (userData) { %>
+                <p><strong>Name:</strong> <%= userData.user_name %></p>
+                <p><strong>Email:</strong> <%= userData.user_email %></p>
+                <p><strong>Address:</strong> <%= userData.user_address %></p>
+                
+                <button onclick="toggleForm('modifyUserForm')">Modify User Information</button>
+            <% } else { %>
+                <p>No information found for this user.</p>
+            <% } %>
+        </div>
+
+        <!-- Form for modification in a separate box -->
+        <div class="modify-form" id="modifyUserForm" style="display: none;">
+            
+            <form id="modifyUserForm" action="/modifyUser" method="POST">
+                <h2>Modify Information</h2>
+                <label for="user_name">Name:</label>
+                <input type="text" id="user_name" name="user_name" value="<%= userData ? userData.user_name : '' %>" required><br>
+
+                <label for="user_email">Email:</label>
+                <input type="email" id="user_email" name="user_email" value="<%= userData ? userData.user_email : '' %>" required><br>
+
+                <label for="user_address">Address:</label>
+                <input type="text" id="user_address" name="user_address" value="<%= userData ? userData.user_address : '' %>" required><br>
+
+                <button type="submit">Update</button>
+            </form>
+        </div>
+        <!-- Other HTML content -->
+    </div>
+
+    <!-- Scripts -->
     <script>
         function toggleForm(formId) {
             var form = document.getElementById(formId);
@@ -17,44 +50,5 @@
             }
         }
     </script>
-</head>
-<body>
-    <!-- Your HTML content -->
-    <h1>User Information</h1>
-    <% if (userData) { %>
-        
-        <p>Name: <%= userData.user_name %></p>
-        <p>Email: <%= userData.user_email %></p>
-        <p>Address: <%= userData.user_address %></p>
-        
-        
-        
-        <!-- Button to toggle user info modification form -->
-        <button onclick="toggleForm('modifyUserForm')">Modify User Info</button>
-        
-        <!-- User info modification form -->
-        <form id="modifyUserForm" action="/modifyUser" method="POST" >
-            <!-- Input fields to modify user information -->
-            <label for="user_name">Name:</label>
-            <input type="text" id="user_name" name="user_name" value="<%= userData.user_name %>" required>
-            <br>
-
-            <label for="user_email">Email:</label>
-            <input type="email" id="user_email" name="user_email" value="<%= userData.user_email %>" required>
-            <br>
-
-            <label for="user_address">Address:</label>
-            <input type="text" id="user_address" name="user_address" value="<%= userData.user_address %>" required>
-            <br>
-
-            
-
-            <button type="submit">Update</button>
-        </form>
-    <% } else { %>
-        <p>No information found for this user.</p>
-    <% } %>
-
-    <!-- Your other HTML content -->
 </body>
 </html>
