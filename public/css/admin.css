@@ -156,6 +156,12 @@ form {
     margin-left: auto; /* Centre le formulaire horizontalement */
     margin-right: auto; /* Centre le formulaire horizontalement */
     width: 50%; /* Largeur du formulaire pour le centrer */
+    background: #fcfcfc;
+    padding: 20px;
+    border-radius: 35px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      
+  
 }
 
 /* Titre des formulaires */
