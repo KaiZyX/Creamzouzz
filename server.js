@@ -55,6 +55,7 @@ const authController = require('./controllers/authController');
 const registerController = require('./controllers/registerController');
 const CartController = require('./controllers/CartController');
 const adminController = require('./controllers/adminController');
+const { Console } = require('console');
 
 
 // Route principale `/` avec les modifications du nouveau code
@@ -95,8 +96,8 @@ app.get('/account', async (req, res) => {
                     console.log(`Admin User ID: ${req.session.userId} - Accessing admin.ejs`);
                     res.redirect('/admin');
                 } else {
-                    console.log(`Client User ID: ${req.session.userId} - Accessing account.ejs`);
-                    res.render('/modifyAccount', { user: req.session.userId }); // Page de compte standard pour les clients
+                    console.log(`Client User ID: ${req.session.userId} - Accessing myAccount.ejs`);
+                    res.render('/myAccount', { user: req.session.userId }); // Page de compte standard pour les clients
                 }
             } else {
                 console.log(`No user found with ID: ${req.session.userId} - Redirecting to login`);
@@ -119,24 +120,29 @@ app.get('/account', async (req, res) => {
 });
 
 
-app.get('/modifyAccount', async (request, response) => {
-    try {
-        const userId = request.session.userId; // Récupère l'ID de l'utilisateur depuis la session
-        
+app.get('/myAccount', async (req, res) => {
+    if (req.session.userId) {
+        let conn;
+        try {
+            conn = await mysql.createConnection(dbConfig);
+            const [userData] = await conn.execute('SELECT * FROM User WHERE user_id = ?', [req.session.userId]);
+            await conn.end();
 
-        const conn = await mysql.createConnection(dbConfig);
-        const [userData] = await conn.execute('SELECT * FROM User WHERE user_id = ?', [userId]);
-        await conn.end();
-        
-        
-
-        // Passer les données de l'utilisateur à la vue
-        response.render('modifyAccount', { userData: userData });
-    } catch (error) {
-        console.error(error);
-        response.status(500).send('Erreur Interne du Serveur');
+            if (userData.length > 0) {
+                const user = userData[0];
+                res.render('myAccount', { userData: user });
+            } else {
+                res.render('myAccount', { userData: null });
+            }
+        } catch (error) {
+            console.error('Database error:', error);
+            res.status(500).send('Erreur interne du serveur');
+        }
+    } else {
+        res.redirect('/login'); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     }
 });
+
 
 
   

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Mettez vos balises head ici -->
+</head>
+<body>
+    <!-- Votre contenu HTML -->
+    
+    <% if (userData) { %>
+        <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Mettez vos balises head ici -->
+</head>
+<body>
+    <!-- Votre contenu HTML -->
+    <h1>My Account</h1>
+    <% if (userData) { %>
+        
+        
+        <p>Name: <%= userData.user_name %></p>
+        <p>Email: <%= userData.user_email %></p>
+        <p>Address: <%= userData.user_address %></p>
+        
+        
+        <!-- Affichez d'autres informations de l'utilisateur ici si nécessaire -->
+    <% } else { %>
+        <p>Aucune information trouvée pour cet utilisateur.</p>
+    <% } %>
+</body>
+</html>
+
+    <% } else { %>
+        <p>Aucune information trouvée pour cet utilisateur.</p>
+    <% } %>
+</body>
+</html>
