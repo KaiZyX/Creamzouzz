@@ -1,0 +1,111 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+}
+
+html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fae3ea;
+}
+
+.my-account-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.modify-form {
+    background: #fcfcfc;
+    padding: 20px;
+    border-radius: 35px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modify-form h2 {
+    margin-bottom: 15px;
+    /* Ajout de marge sous le titre */
+}
+
+.modify-form label,
+.modify-form input {
+    margin-bottom: 10px;
+    /* Espacement entre les labels et les inputs */
+}
+
+.modify-form button {
+    margin-top: 10px;
+    /* Espacement du bouton */
+}
+
+.user-info {
+    background: #fcfcfc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* Ajout de marge en bas */
+}
+
+.user-actions {
+    background: #fcfcfc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.user-info h2,
+.user-actions h2 {
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    margin-bottom: 10px;
+}
+
+.user-info label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-info input[type="text"],
+.user-info input[type="email"] {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-actions button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-actions button:hover {
+    opacity: 0.9;
+}

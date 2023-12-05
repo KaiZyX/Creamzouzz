@@ -1,45 +1,78 @@
+<!-- Fichier pour la page principale-->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Définition de l'encodage de caractères en UTF-8-->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ice Cream Shop</title>
+
+    <!-- Configuration de la vue initiale pour les appareils mobiles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">>
+
     <!-- Intégration de Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <!-- Fichier CSS personnalisé -->
     <link rel="stylesheet" href="/css/index.css">
+
     <!-- Ajoutez le code d'importation de la police Poppins ici -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap">
+
+  <!-- Titre de la page -->
+  <title>Shop - Creamzouz</title>
+
 </head>
 <body>
-
     <header> 
+
+
+        <% if (isAdmin) { %>
+            <div style="position: absolute; top: 0; left: 0;">
+              <button onclick="location.href='/admin'">Admin</button>
+            </div>
+        <% } %>
+          
+
+
+        
+        <!-- Barre de navigation -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <ul class="navbar-nav mr-auto">
+
+                 <!-- Bouton Account ou Login en fonction de la connexion de l'utilisateur -->
                 <li class="nav-item" id="Account-button">
                     <% if (user) { %>
-                        <a href="/account">Account</a>
+                        <a href="/myAccount">Account</a>
                     <% } else { %>
                         <a  href="/login">Login</a>
                     <% } %>
                 </li>
 
+                <!-- Main avec le texte + l'image de fond -->
                 <li class="nav-item">
                     <a class="nav-link" href="#main">Main</a>
                 </li>
+
+                <!-- Icecream -->
                 <li class="nav-item">
                     <a class="nav-link" href="#container">Icecream</a>
                 </li>
+
+                <!-- Texte en plein milieu Creamouzz -->
                 <li class="nav-item">
                     <span class="blue-letter">C</span><span class="pink-letters">REAMGOUZZ</span>
                 </li>
+
+                <!-- Topping -->
                 <li class="nav-item">
                     <a class="nav-link" href="#topping">Topping</a>
                 </li>
+
+                 <!-- About -->
                 <li class="nav-item">
                     <a class="nav-link" href="#about">About</a>
                 </li>
-                <!-- Ajoutez l'icône du panier à droite -->
+
+                <!-- Icône du panier à droite -->
                 <li class="nav-item cart-icon">
                     <a class="nav-link" id="open-cart-button">
                         <img src="https://img.icons8.com/?size=48&id=RZVvpEvg0RO9&format=png" alt="Panier" width="50" height="50">
@@ -50,12 +83,13 @@
     </header>
 
 
+    <!-- Modal du panier -->
     <div id="cart-modal" class="modal cart-modal">
         <div class="cart-total">
-            <span id="total-price">Prix total : $0.00</span>
+            <span id="total-price">Total Price : $0.00</span>
         </div>
+
         <!-- Le bouton pour fermer la modal du panier -->
-        
         <div class="cart-close">
             <button id="cart-close">&times;</button>
         </div>
@@ -63,23 +97,30 @@
         <div id="cart-content">
             <!-- Les articles du panier seront ajoutés ici par updateCartDisplay() -->
         </div>
+
+        <!-- Le bouton pour vider le panier ou Passer a la caisse -->
         <div class="cart-actions">
-            <button id="checkout">Passer à la caisse</button>
-            <button id="clear-cart-button">Vider le panier</button>
+            <button id="checkout">Checkout</button>
+            <button id="clear-cart-button">Empty the order</button>
         </div>
+
     </div>
     
 
       
-    
+    <!-- Section principale avec l'image et le texte -->
     <section id="main" class="main">
         <section class="parallax">
             <div class="parallax">
                 <div class="container">
                     <div class="row">
+
+                        <!-- L'image de fond -->
                         <div class="col-md-6">
                             <img src="https://cdn.discordapp.com/attachments/1153692859111854202/1156258003381665872/creamgouzz_logo.png?ex=6537e92e&is=6525742e&hm=b186c96683d5f2d753190a397d59026b4f6e9e374e5cb933e111bba9909c582e&" class="card-img-main img-fluid" alt="Image de glace">
                         </div>
+
+                        <!-- Le texte -->
                         <div class="col-md-6">
                             <h1>Ice Cream Shop</h1>
                             <p><br><br>Welcome to our craft ice cream shop</p>
@@ -92,10 +133,18 @@
         </section>
     </section>
 
+    <!-- Section Icecream -->
     <section id="container" class="container">
+
+        <!-- Titre de la section Icecream -->
         <h2>ICECREAMS</h2>
+
+        <!-- Liste des produits -->
         <div class="row">
+            <!-- Boucle pour afficher les produits -->
             <% icecreams.forEach(icecream => { %>
+
+                <!-- Carte de produit -->
                 <div class="col-md-4">
                     <div class="card">
                         <img src="<%= icecream.icecream_image %>" class="card-img-container img-fluid" alt="<%= icecream.icecream_name %>">
@@ -103,25 +152,35 @@
                             <h5 class="card-title"><%= icecream.icecream_name %></h5>
                             <p class="card-text"><%= icecream.icecream_description %></p>
                             <p class="card-text">Price : $<%= icecream.icecream_baseprice %></p>
-                            <!-- Assume that your addItemToCart and removeItemFromCart functions are properly defined to handle these parameters -->
-                            <button class="btn btn-primary" onclick="addItemToCart(<%= icecream.icecream_id %>, null, 1, <%= icecream.icecream_baseprice %>, '<%= icecream.icecream_name %>')">Add to cart</button>
 
+                            <!-- Bouton pour ajouter ou supprime du panier -->
+                            <button class="btn btn-primary" onclick="addItemToCart(<%= icecream.icecream_id %>, null, 1, <%= icecream.icecream_baseprice %>, '<%= icecream.icecream_name %>')">Add to cart</button>
                             <button class="btn btn-danger" onclick="removeItemFromCart(<%= icecream.icecream_id %>, null, 1, <%= icecream.icecream_baseprice %>, '<%= icecream.icecream_name %>')">Remove from cart</button>
                         </div>
                     </div>
                 </div>
+
             <% }); %>
+
         </div>
+
     </section>
     
-
     <hr>
     
+    <!-- Section Topping -->
     <section id="topping" class="topping">
         <div class="container">
+
+            <!-- Titre de la section Topping -->
             <h2>TOPPINGS</h2>
+
+            <!-- Liste des produits -->
             <div class="row">
+                <!-- Boucle pour afficher les produits -->
                 <% toppings.forEach(topping => { %>
+
+                    <!-- Carte de produit -->
                     <div class="col-md-4">
                         <div class="card">
                             <img src="<%= topping.topping_image %>" class="card-img-container img-fluid" alt="<%= topping.topping_name %>">
@@ -129,22 +188,28 @@
                                 <h5 class="card-title"><%= topping.topping_name %></h5>
                                 <p class="card-text"><%= topping.topping_description %></p>
                                 <p class="card-text">Price : $<%= topping.topping_price %></p>
+
+                                <!-- Bouton pour ajouter ou supprime du panier -->
                                 <button class="btn btn-primary" onclick="addItemToCart(null, <%= topping.topping_id %>, 1, <%= topping.topping_price %>, '<%= topping.topping_name %>')">Add to cart</button>
                                 <button class="btn btn-danger" onclick="removeItemFromCart(null, <%= topping.topping_id %>, 1, <%= topping.topping_price %>, '<%= topping.topping_name %>')">Remove from cart</button>
-
                             </div>
                         </div>
                     </div>
                 <% }); %>
+
             </div>
         </div>
     </section>
     
-
+    <!-- Section À propos -->
     <section id="about"  class="about">
+
+        <!-- Contenu de la section À propos -->
         <div class="container text-center">
             <h2>About Our Team</h2>
             <div class="row">
+
+                <!-- Anis  -->
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
                         <img src="img/Anis.jpg" class="img-fluid" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
@@ -152,6 +217,8 @@
                     <h4>Anis DALI-AHMED</h4>
                     <p>Dofus Player</p>
                 </div>
+
+                <!-- Louka  -->
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
                         <img src="img/Louka.jpg" class="img-fluid"alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
@@ -159,6 +226,8 @@
                     <h4>Louka MILAN</h4>
                     <p>Lebron James</p>
                 </div>
+
+                <!-- Kevin  -->
                 <div class="col-md-4">
                     <div class="rounded-circle mx-auto my-3" style="width: 150px; height: 150px; overflow: hidden; border-radius: 50%;">
                         <img src="img/Kevin.png" class="img-fluid" alt="Membre d'équipe 1" style="max-width: 100%; max-height: 100%;">
@@ -166,17 +235,24 @@
                     <h4>Kevin TRINH</h4>
                     <p> 北方话</p>
                 </div>
+
             </div>
         </div>
+
     </section>
 
+    <!-- Pied de page -->
     <footer class="text-center mt-5 d-flex justify-content-center align-items-center">
+        <!-- Texte du pied de page -->
         <p class="mr-2">&copy; 2023 Ice Cream Shop</p>
+        <!-- Lien vers GitHub -->
         <a href="https://github.com/KaiZyX/Creamzouzz" target="_blank" class="align-self-end">
             <img src="https://img.icons8.com/ios/452/github--v1.png" alt="GitHub" width="30" height="30" >
         </a>
     </footer>
     
+
+    <!-- Variables JavaScript pour recuperer UserId (Savoir s'il est login)-->
     <script> 
         var userIsLoggedIn = <%= !!user %>; 
     </script>
@@ -186,11 +262,12 @@
     </script>
 
     <!-- Intégration de Bootstrap JavaScript (jQuery et Popper.js requis) -->
-    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Scripts -->
     <script src="/js/index.js"></script>
+
 </body>
 </html>

@@ -31,6 +31,13 @@ document.getElementById("cart-close").addEventListener('click', () => {
     toggleCart();
 });
 
+
+document.getElementById('admin-button').addEventListener('click', () => {
+    window.location.href = '/admin'; // Redirige vers votre route admin
+});
+
+
+
 // ====== Fonctions Utilitaires pour la Navigation et l'Affichage ======
 function smoothScroll(targetId) {
     const target = document.getElementById(targetId);
@@ -88,38 +95,71 @@ function updateCartDisplay() {
       cartContent.appendChild(cartItemDiv);
     });
   }
-  
 
+// Fonction pour ajouter un article au panier
 function addItemToCart(icecreamId, toppingId, quantity, price, itemName) {
-    // Vérifier si l'article est déjà dans le panier
-    const existingItem = cartItems.find(item => item.icecreamId === icecreamId && item.toppingId === toppingId);
-    if (existingItem) {
-        existingItem.quantity += quantity;
-    } else {
-        cartItems.push({ icecreamId, toppingId, quantity, price, name: itemName });
-    }
-    totalPrice += price * quantity;
-    updateCartDisplay();
-    updateTotalPrice();
-    sendCartUpdate('add', icecreamId, toppingId, quantity, price, itemName);
+    
+    fetch('/api/cart/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ icecreamId, toppingId, quantity, price, itemName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Mettre à jour le panier côté client...
+            // Vérifier si l'article est déjà dans le panier
+            const existingItem = cartItems.find(item => item.icecreamId === icecreamId && item.toppingId === toppingId);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cartItems.push({ icecreamId, toppingId, quantity, price, name: itemName });
+            }
+            totalPrice += price * quantity;
+            updateCartDisplay();
+            updateTotalPrice();
+            sendCartUpdate('add', icecreamId, toppingId, quantity, price, itemName);                
+        } else {
+            alert("Erreur de stock: " + data.message);
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
 }
 
+// Fonction pour retirer un article du panier
 function removeItemFromCart(icecreamId, toppingId, quantity, price, itemName) {
-    // Trouver l'article existant dans le panier
-    const existingItem = cartItems.find(item => item.icecreamId === icecreamId && item.toppingId === toppingId);
-    if (existingItem) {
-        existingItem.quantity -= quantity;
-        if (existingItem.quantity <= 0) {
-            cartItems = cartItems.filter(item => item !== existingItem);
+    fetch('/api/cart/remove', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ icecreamId, toppingId, quantity, price, itemName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Mettre à jour le panier côté client...
+            const existingItem = cartItems.find(item => item.icecreamId === icecreamId && item.toppingId === toppingId);
+            if (existingItem) {
+                existingItem.quantity -= quantity;
+                if (existingItem.quantity <= 0) {
+                    cartItems = cartItems.filter(item => item !== existingItem);
+                }
+                totalPrice -= price * quantity;
+                if (totalPrice < 0) totalPrice = 0;
+                updateCartDisplay();
+                updateTotalPrice();
+                sendCartUpdate('remove', icecreamId, toppingId, quantity, price, itemName);
+            } else {
+                console.error("Item not found in cart:", itemName);
+            }
+        } else {
+            console.error("Erreur:", data.message);
         }
-        totalPrice -= price * quantity;
-        if (totalPrice < 0) totalPrice = 0;
-        updateCartDisplay();
-        updateTotalPrice();
-        sendCartUpdate('remove', icecreamId, toppingId, quantity, price, itemName);
-    } else {
-        console.error("Item not found in cart:", itemName);
-    }
+    })
+    .catch(error => console.error('Erreur:', error));
 }
 
 function sendCartUpdate(action, icecreamId, toppingId, quantity) {
@@ -150,8 +190,6 @@ function sendCartUpdate(action, icecreamId, toppingId, quantity) {
 }
 
 
-
-
 function processCheckout() {
     console.log('Attempting to process checkout with items:', cartItems, 'and userId:', userId);
 
@@ -162,7 +200,18 @@ function processCheckout() {
         },
         body: JSON.stringify({ userId, cartItems })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Vérifiez le type de contenu de la réponse
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+            return response.json(); // C'est du JSON
+        } else {
+            throw new Error('Did not receive JSON');
+        }
+    })
     .then(data => {
         console.log('Checkout response:', data);
         if (data.success) {
@@ -174,6 +223,22 @@ function processCheckout() {
     })
     .catch(error => console.error('Error during checkout:', error));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Assurez-vous que le gestionnaire d'événements est correctement attaché
 if (checkoutButton) {
