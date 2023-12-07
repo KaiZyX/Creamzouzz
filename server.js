@@ -47,9 +47,11 @@ app.use((req, res, next) => {
 // Middleware pour vérifier l'authentification de l'utilisateur
 function ensureLoggedIn(req, res, next) {
     if (req.session.userId) {
-      next();
+        console.log('User is logged in:', req.session.userId);
+        next();
     } else {
-      res.redirect('/login');
+        console.log('User is not logged in, redirecting to login page.');
+        res.redirect('/login');
     }
 }
 
@@ -124,6 +126,7 @@ app.get('/account', async (req, res) => {
 });
 
 
+
 // Route pour l'administration
 app.get('/admin', async (request, response) => {
     try {
@@ -142,6 +145,8 @@ app.get('/admin', async (request, response) => {
         response.status(500).send('Erreur Interne du Serveur');
     }
 });
+
+
 
 // Route pour la modification Account 
 app.get('/myAccount', async (req, res) => {
@@ -168,10 +173,6 @@ app.get('/myAccount', async (req, res) => {
 });
 
 
-// Route pour la page de paiement 
-app.get('/checkout', ensureLoggedIn, (req, res) => {
-    res.render('checkout', { cartItems: req.session.cartItems, totalPrice: req.session.totalPrice });
-});
 
 // Routes pour la gestion des produits et du panier dans la page Admin
 app.post('/addIcecream', adminController.addIcecream);
@@ -180,6 +181,8 @@ app.post('/deleteIcecream', adminController.deleteIcecream);
 app.post('/deleteTopping', adminController.deleteTopping);
 app.post('/modifyIcecream/:icecreamId', adminController.modifyIcecream);
 app.post('/modifyTopping/:toppingId', adminController.modifyTopping);
+
+
 
 // Routes pour l'API du panier
 app.post('/api/cart/add', CartController.addToCart);
@@ -191,12 +194,19 @@ app.get('/register', (req, res) => res.render('register'));
 app.post('/login', authController.login);
 app.post('/register', registerController.register);
 
+// Route pour le paiement du panier
+app.post('/cart/checkout', CartController.checkout);
+
+// Route pour la page de paiement 
+app.get('/checkout', ensureLoggedIn, (req, res) => {
+    res.render('checkout', { cartItems: req.session.cartItems, totalPrice: req.session.totalPrice });
+});
+
+
+
 // Routes pour les modifications du account
 app.post('/modifyUser', accountController.modifyUser);
 
-// Route pour le paiement du panier
-app.get('/checkout', ensureLoggedIn, (req, res) => res.render('checkout'));
-app.post('/cart/checkout', CartController.checkout);
 
 // Démarrage du serveur 
 app.listen(process.env.WEB_PORT, '0.0.0.0', () => {

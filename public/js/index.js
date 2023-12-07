@@ -10,6 +10,19 @@ const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
 const checkoutButton = document.getElementById('checkout');
 
 
+
+// Le bouton du panier
+if (checkoutButton) {
+    checkoutButton.addEventListener('click', () => {
+        console.log('Checkout button clicked');
+        processCheckout();
+    });
+} else {
+    console.error('Checkout button not found');
+}
+
+
+
 document.getElementById('open-cart-button').addEventListener('click', function(event) {
     event.preventDefault();
     if (!userId) {
@@ -18,6 +31,7 @@ document.getElementById('open-cart-button').addEventListener('click', function(e
         toggleCart();
     }
 });
+
 
 document.getElementById("clear-cart-button").addEventListener("click", () => {
     cartItems = [];
@@ -32,10 +46,10 @@ document.getElementById("cart-close").addEventListener('click', () => {
 });
 
 
+
 document.getElementById('admin-button').addEventListener('click', () => {
     window.location.href = '/admin'; // Redirige vers votre route admin
 });
-
 
 
 // ====== Fonctions Utilitaires pour la Navigation et l'Affichage ======
@@ -224,35 +238,6 @@ function processCheckout() {
     .catch(error => console.error('Error during checkout:', error));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Assurez-vous que le gestionnaire d'événements est correctement attaché
-if (checkoutButton) {
-    checkoutButton.addEventListener('click', () => {
-        console.log('Checkout button clicked');
-        processCheckout();
-    });
-} else {
-    console.error('Checkout button not found');
-}
-
-
-
-
 function toggleCart() {
     const cartModal = document.getElementById('cart-modal');
     console.log('toggleCart before', cartModal.classList.contains('active')); // Pour le débogage
@@ -313,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.userId) { // Vérifiez si la variable globale est définie.
         userId = window.userId; // Utilisez la valeur de la variable globale.
     }
-
 
 });
 

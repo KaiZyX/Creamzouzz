@@ -24,15 +24,15 @@
 <body>
     <header> 
 
-
+        
+        
+        <!-- Bouton pour le menu Admin -->
         <% if (isAdmin) { %>
             <div style="position: absolute; top: 0; left: 0;">
               <button onclick="location.href='/admin'">Admin</button>
             </div>
         <% } %>
-          
-
-
+        
         
         <!-- Barre de navigation -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -100,7 +100,8 @@
 
         <!-- Le bouton pour vider le panier ou Passer a la caisse -->
         <div class="cart-actions">
-            <button id="checkout">Checkout</button>
+            <button id="checkout" onclick="console.log('Checkout clicked')">Checkout</button>
+
             <button id="clear-cart-button">Empty the order</button>
         </div>
 
@@ -251,7 +252,6 @@
         </a>
     </footer>
     
-
     <!-- Variables JavaScript pour recuperer UserId (Savoir s'il est login)-->
     <script> 
         var userIsLoggedIn = <%= !!user %>; 
@@ -261,13 +261,13 @@
         var userId = <%- JSON.stringify(user ? user.userID : null) %>;
     </script>
 
+    <!-- Scripts -->
+    <script src="/js/index.js"></script>
+
     <!-- Intégration de Bootstrap JavaScript (jQuery et Popper.js requis) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Scripts -->
-    <script src="/js/index.js"></script>
 
 </body>
 </html>

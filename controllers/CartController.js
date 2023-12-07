@@ -52,6 +52,7 @@ exports.removeFromCart = async (req, res) => {
 };
 
 exports.checkout = async (req, res) => {
+    console.log('Checkout request received:', req.body);
     let conn;
     try {
         conn = await mysql.createConnection(dbConfig);
