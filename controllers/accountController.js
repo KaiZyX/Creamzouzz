@@ -22,7 +22,7 @@ async function modifyUser(req, res) {
         );
         await connection.end();
 
-        res.send('User information updated successfully!');
+        res.send(`<script>alert('Information modified successfully !'); window.location.href = '/myAccount';</script>`);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error updating user information');
