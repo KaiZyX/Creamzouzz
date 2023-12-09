@@ -182,6 +182,29 @@ app.post('/deleteTopping', adminController.deleteTopping);
 app.post('/modifyIcecream/:icecreamId', adminController.modifyIcecream);
 app.post('/modifyTopping/:toppingId', adminController.modifyTopping);
 
+// Route pour récupérer les détails de la glace pour la modification
+app.get('/fetchIcecreamDetails/:icecreamId', async (req, res) => {
+    const icecreamId = req.params.icecreamId;
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [icecreamDetails] = await connection.execute(
+            'SELECT * FROM IceCream WHERE icecream_id = ?',
+            [icecreamId]
+        );
+        await connection.end();
+
+        if (icecreamDetails.length > 0) {
+            res.json(icecreamDetails[0]); // Renvoie les détails de la glace au format JSON
+        } else {
+            res.status(404).send('Icecream not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching icecream details');
+    }
+});
+
 
 
 // Routes pour l'API du panier

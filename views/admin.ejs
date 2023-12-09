@@ -175,31 +175,31 @@
 
                 <h1>Modify Icecream</h1>
                 <label for="icecream_brand">Icecream Brand:</label>
-                <input type="number" id="icecream_brand" name="icecream_brand" required>
+                <input type="number" id="mdy_icecream_brand" name="icecream_brand" required>
                 <br>
 
                 <label for="icecream_name">Icecream Name:</label>
-                <input type="text" id="icecream_name" name="icecream_name" required>
+                <input type="text" id="mdy_icecream_name" name="icecream_name" required>
                 <br>
 
                 <label for="icecream_baseprice">Icecream Price:</label>
-                <input type="number" id="icecream_baseprice" name="icecream_baseprice" required>
+                <input type="number" id="mdy_icecream_baseprice" name="icecream_baseprice" required>
                 <br>
 
                 <label for="icecream_calory">Icecream Calory:</label>
-                <input type="number" id="icecream_calory" name="icecream_calory" required>
+                <input type="number" id="mdy_icecream_calory" name="icecream_calory" required>
                 <br>
 
                 <label for="icecream_stock">Icecream Stock:</label>
-                <input type="number" id="icecream_stock" name="icecream_stock" required>
+                <input type="number" id="mdy_icecream_stock" name="icecream_stock" required>
                 <br>
 
                 <label for="icecream_description">Icecream Description:</label>
-                <input type="text" id="icecream_description" name="icecream_description" required>
+                <input type="text" id="mdy_icecream_description" name="icecream_description" required>
                 <br>
 
                 <label for="icecream_image">Icecream Image:</label>
-                <input type="text" id="icecream_image" name="icecream_image" required>
+                <input type="text" id="mdy_icecream_image" name="icecream_image" required>
                 <br>
 
                 <button type="submit">Update Icecream</button>
@@ -326,7 +326,7 @@
             modifyIcecreamModal.style.display = 'none'; // Masque la superposition modale
         }
 
-        function modifyIcecream(icecreamId) {
+        async function modifyIcecream(icecreamId) {
             hideOtherForms();
             showModifyIcecreamModal();
 
@@ -334,10 +334,34 @@
             modifyIcecreamForm.style.display = 'block';
             modifyIcecreamForm.action = `/modifyIcecream/${icecreamId}`;
 
+            try {
+                const response = await fetch(`/fetchIcecreamDetails/${icecreamId}`);
+                const icecreamDetails = await response.json();
+                console.log(icecreamDetails);
+                test=document.getElementById('Mdyicecream_brand')
+                console.log(icecreamDetails.icecream_name);
+                try {
+                    test.value = icecreamDetails.icecream_brand;
+                } catch (error) {
+                    console.log(error);
+                }
+                // Pré-remplir les champs du formulaire avec les détails récupérés
+                document.getElementById('mdy_icecream_brand').value = icecreamDetails.icecream_brand;
+                document.getElementById('mdy_icecream_name').value = icecreamDetails.icecream_name;
+                document.getElementById('mdy_icecream_baseprice').value = icecreamDetails.icecream_baseprice;
+                document.getElementById('mdy_icecream_calory').value = icecreamDetails.icecream_calory;
+                document.getElementById('mdy_icecream_stock').value = icecreamDetails.icecream_stock;
+                document.getElementById('mdy_icecream_description').value = icecreamDetails.icecream_description;
+                document.getElementById('mdy_icecream_image').value = icecreamDetails.icecream_image;
 
-            // Fetch icecream details using icecreamId and pre-fill the form fields for modification
-            // ...
+            } catch (error) {
+                console.error(error);
+                alert('Error fetching icecream details');
+            }
         }
+
+
+
 
 
         function showModifyToppingModal() {
