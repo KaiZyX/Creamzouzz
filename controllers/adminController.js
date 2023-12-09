@@ -9,22 +9,25 @@ const dbConfig = {
 };
 
 async function addIcecream(req, res) {
-    const {icecream_brand, icecream_name, icecream_baseprice,icecream_calory,icecream_stock,icecream_description,icecream_image } = req.body;
+    const {icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image } = req.body;
 
     try {
         const connection = await mysql.createConnection(dbConfig);
         const [result] = await connection.execute(
-            'INSERT INTO IceCream (icecream_brand, icecream_name, icecream_baseprice,icecream_calory,icecream_stock,icecream_description,icecream_image) VALUES (?, ?,?,?,?,?,?)',
-            [icecream_brand, icecream_name, icecream_baseprice,icecream_calory,icecream_stock,icecream_description,icecream_image]
+            'INSERT INTO IceCream (icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image) VALUES (?, ?,?,?,?,?,?)',
+            [icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image]
         );
         await connection.end();
 
-        res.send('Données ajoutées avec succès !');
+        // Redirection vers la page actuelle après l'ajout des données
+        res.send(`<script>alert('Data added successfully !'); window.location.href = '/admin';</script>`);
+
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erreur lors de l\'ajout des données');
+        res.status(500).send(`<script>alert('Error adding data !'); window.location.href = '/admin';</script>`);
     }
 }
+
 
 async function addTopping(req, res) {
     const {topping_name, topping_price,topping_calory,topping_stock,topping_description,topping_image } = req.body;
@@ -37,10 +40,10 @@ async function addTopping(req, res) {
         );
         await connection.end();
 
-        res.send('Données ajoutées avec succès !');
+        res.send(`<script>alert('Data added successfully !'); window.location.href = '/admin';</script>`);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erreur lors de l\'ajout des données');
+        res.status(500).send(`<script>alert('Error adding data !'); window.location.href = '/admin';</script>`);
     }
 }
 
@@ -95,10 +98,10 @@ async function modifyIcecream(req, res) {
         );
         await connection.end();
 
-        res.send('Données de la glace modifiées avec succès !');
+        res.send(`<script>alert('Data modified successfully !'); window.location.href = '/admin';</script>`);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erreur lors de la modification des données de la glace');
+        res.status(500).send(`<script>alert('Error when modifying icecream data !'); window.location.href = '/admin';</script>`);
     }
 }
 
@@ -114,10 +117,10 @@ async function modifyTopping(req, res) {
         );
         await connection.end();
 
-        res.send('Données du topping modifiées avec succès !');
+        res.send(`<script>alert('Data modified successfully !'); window.location.href = '/admin';</script>`);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erreur lors de la modification des données du topping');
+        res.status(500).send(`<script>alert('Error when modifying topping data !'); window.location.href = '/admin';</script>`);
     }
 }
 
