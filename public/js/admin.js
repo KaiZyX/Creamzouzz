@@ -24,14 +24,28 @@ showIcecreamsBtn.addEventListener('click', () => {
 
 function toggleForm(formId) {
     const form = document.getElementById(formId);
+    const icecreamSection = document.getElementById('icecreamsSection');
+    const toppingsSection = document.getElementById('toppingsSection');
 
     if (currentForm && currentForm !== form) {
         currentForm.style.display = 'none';
     }
 
-    form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-    currentForm = form.style.display === 'none' ? null : form;
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+        currentForm = form;
+    } else {
+        form.style.display = 'none';
+        currentForm = null;
+    }
+
+    // Hide the Edit/Remove section when opening a form
+    icecreamSection.style.display = 'none';
+    toppingsSection.style.display = 'none';
+
 }
+
+
 
 
 async function deleteIcecream(icecreamId) {
@@ -83,7 +97,7 @@ function hideModifyIcecreamModal() {
 }
 
 async function modifyIcecream(icecreamId) {
-    hideOtherForms();
+    hideModifyForms();
     showModifyIcecreamModal();
 
     const modifyIcecreamForm = document.getElementById('modifyIcecreamForm');
@@ -131,7 +145,7 @@ function hideModifyToppingModal() {
 }
 
 function modifyTopping(toppingId) {
-    hideOtherForms();
+    hideModifyForms();
     showModifyToppingModal();
 
     const modifyToppingForm = document.getElementById('modifyToppingForm');
@@ -142,10 +156,18 @@ function modifyTopping(toppingId) {
     // ...
 }
 
-function hideOtherForms() {
+function hideModifyForms() {
     const modifyIcecreamForm = document.getElementById('modifyIcecreamForm');
     const modifyToppingForm = document.getElementById('modifyToppingForm');
 
     modifyIcecreamForm.style.display = 'none';
     modifyToppingForm.style.display = 'none';
+}
+
+function hideOtherForms() {
+    const addIcecreamForm = document.getElementById('icecreamForm');
+    const addToppingForm = document.getElementById('toppingForm');
+
+    addIcecreamForm.style.display = 'none';
+    addToppingForm.style.display = 'none';
 }
