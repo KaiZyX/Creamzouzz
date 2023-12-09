@@ -52,10 +52,18 @@ async function deleteIcecream(req, res) {
 
     try {
         const connection = await mysql.createConnection(dbConfig);
+        // Supprimer les entrées de Connector liées à la glace à supprimer
+        await connection.execute(
+            'DELETE FROM Connector WHERE conn_icecream = ?',
+            [icecreamId]
+        );
+
+        // Ensuite, supprimez la glace
         const [result] = await connection.execute(
             'DELETE FROM IceCream WHERE icecream_id = ?',
             [icecreamId]
         );
+        
         await connection.end();
 
         res.send('Glace supprimée avec succès !');
@@ -70,6 +78,13 @@ async function deleteTopping(req, res) {
 
     try {
         const connection = await mysql.createConnection(dbConfig);
+         // Supprimer les entrées de Connector liées au topping à supprimer
+         await connection.execute(
+            'DELETE FROM Connector WHERE conn_topping = ?',
+            [toppingId]
+        );
+
+        // Ensuite, supprimez le topping
         const [result] = await connection.execute(
             'DELETE FROM Topping WHERE topping_id = ?',
             [toppingId]
