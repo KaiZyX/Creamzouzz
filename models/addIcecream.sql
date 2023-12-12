@@ -1,0 +1,2 @@
+-- Contenu de addIcecream.sql
+INSERT INTO IceCream (icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image) VALUES (?, ?, ?, ?, ?, ?, ?)
