@@ -141,3 +141,19 @@ button {
 button:hover {
     background-color: #4589a0; /* Changement de couleur au survol */
 }
+
+.logout-button{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(198, 61, 53);
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Effet de transition en cas de survol */
+}
+
+.logout-button:hover {
+    background-color: #a4554a; /* Changement de couleur au survol */
+}
