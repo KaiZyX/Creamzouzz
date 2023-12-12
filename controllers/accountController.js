@@ -1,7 +1,5 @@
 
 const mysql = require('mysql2/promise');
-const fs = require('fs').promises; // Ajout de cette ligne pour utiliser le module fs
-const path = require('path');
 const bcrypt = require('bcrypt');
 
 const dbConfig = {
@@ -11,16 +9,15 @@ const dbConfig = {
     database: process.env.DB_DATABASE
 };
 
+const { updateUserSQL } = require('../models/databaseOperations');
+
+
 async function modifyUser(req, res) {
     const { user_name, user_email, user_address } = req.body;
     const userId = req.session.userId; // Récupère l'ID de l'utilisateur depuis la session
 
     try {
-        const query = await fs.readFile(path.join(__dirname, '../models/updateUser.sql'), 'utf-8');
-        const connection = await mysql.createConnection(dbConfig);
-        const [result] = await connection.execute(query, [user_name, user_email, user_address, userId]);
-        await connection.end();
-
+        await updateUserSQL(userId, [user_name, user_email, user_address]);
         res.send(`<script>alert('Information modified successfully !'); window.location.href = '/myAccount';</script>`);
     } catch (error) {
         console.error(error);

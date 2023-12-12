@@ -1,7 +1,5 @@
 // adminController.js
 const mysql = require('mysql2/promise');
-const fs = require('fs').promises;
-const path = require('path');
 const bcrypt = require('bcrypt');
 
 const dbConfig = {
@@ -11,15 +9,14 @@ const dbConfig = {
     database: process.env.DB_DATABASE
 };
 
+
+const { addIcecreamSQL, addToppingSQL, deleteIcecreamSQL, deleteToppingSQL, modifyIcecreamSQL, modifyToppingSQL } = require('../models/databaseOperations');
+
 async function addIcecream(req, res) {
     const {icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image } = req.body;
 
     try {
-        const insertQuery = await fs.readFile(path.join(__dirname, '../models/addIcecream.sql'), 'utf-8');
-        const connection = await mysql.createConnection(dbConfig);
-        const [result] = await connection.execute(insertQuery, [icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image]);
-        await connection.end();
-
+        await addIcecreamSQL([icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image]);
         // Redirection vers la page actuelle après l'ajout des données
         res.send(`<script>alert('Data added successfully !'); window.location.href = '/admin';</script>`);
 
@@ -34,10 +31,7 @@ async function addTopping(req, res) {
     const {topping_name, topping_price,topping_calory,topping_stock,topping_description,topping_image } = req.body;
 
     try {
-        const insertQuery = await fs.readFile(path.join(__dirname, '../models/addTopping.sql'), 'utf-8');
-        const connection = await mysql.createConnection(dbConfig);
-        const [result] = await connection.execute(insertQuery, [topping_name, topping_price, topping_calory, topping_stock, topping_description, topping_image]);
-        await connection.end();
+        await addToppingSQL([topping_name, topping_price, topping_calory, topping_stock, topping_description, topping_image]);
 
         res.send(`<script>alert('Data added successfully !'); window.location.href = '/admin';</script>`);
     } catch (error) {
@@ -50,18 +44,8 @@ async function deleteIcecream(req, res) {
     const icecreamId = req.body.icecreamId; // Récupère l'ID de la glace à supprimer depuis la requête
 
     try {
-        const deleteConnectorQuery = await fs.readFile(path.join(__dirname, '../models/deleteConnectorByIcecream.sql'), 'utf-8');
-        const deleteIcecreamQuery = await fs.readFile(path.join(__dirname, '../models/deleteIcecreamById.sql'), 'utf-8');
-
-        const connection = await mysql.createConnection(dbConfig);
-        // Supprimer les entrées de Connector liées à la glace à supprimer
-        await connection.execute(deleteConnectorQuery, [icecreamId]);
-
-        // Ensuite, supprimez la glace
-        const [result] = await connection.execute(deleteIcecreamQuery, [icecreamId]);
         
-        await connection.end();
-
+        await deleteIcecreamSQL(icecreamId);
         res.send('Glace supprimée avec succès !');
     } catch (error) {
         console.error(error);
@@ -73,17 +57,8 @@ async function deleteTopping(req, res) {
     const toppingId = req.body.toppingId; // Récupère l'ID du topping à supprimer depuis la requête
 
     try {
-        const deleteConnectorQuery = await fs.readFile(path.join(__dirname, '../models/deleteConnectorByTopping.sql'), 'utf-8');
-        const deleteToppingQuery = await fs.readFile(path.join(__dirname, '../models/deleteToppingById.sql'), 'utf-8');
 
-        const connection = await mysql.createConnection(dbConfig);
-        // Supprimer les entrées de Connector liées au topping à supprimer
-        await connection.execute(deleteConnectorQuery, [toppingId]);
-
-        // Ensuite, supprimez le topping
-        const [result] = await connection.execute(deleteToppingQuery, [toppingId]);
-        await connection.end();
-
+        await deleteToppingSQL(toppingId);
         res.send('Topping supprimé avec succès !');
     } catch (error) {
         console.error(error);
@@ -92,17 +67,12 @@ async function deleteTopping(req, res) {
 }
 
 
-
-
 async function modifyIcecream(req, res) {
     const { icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image } = req.body;
     const icecreamId = req.params.icecreamId; // Récupère l'ID de la glace à modifier depuis la requête
 
     try {
-        const updateQuery = await fs.readFile(path.join(__dirname, '../models/updateIcecreamById.sql'), 'utf-8');
-        const connection = await mysql.createConnection(dbConfig);
-        const [result] = await connection.execute(updateQuery, [icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image, icecreamId]);
-        await connection.end();
+        await modifyIcecreamSQL(icecreamId, [icecream_brand, icecream_name, icecream_baseprice, icecream_calory, icecream_stock, icecream_description, icecream_image]);
 
         res.send(`<script>alert('Data modified successfully !'); window.location.href = '/admin';</script>`);
     } catch (error) {
@@ -116,10 +86,7 @@ async function modifyTopping(req, res) {
     const toppingId = req.params.toppingId; // Récupère l'ID du topping à modifier depuis la requête
 
     try {
-        const updateQuery = await fs.readFile(path.join(__dirname, '../models/updateToppingById.sql'), 'utf-8');
-        const connection = await mysql.createConnection(dbConfig);
-        const [result] = await connection.execute(updateQuery, [topping_name, topping_price, topping_calory, topping_stock, topping_description, topping_image, toppingId]);
-        await connection.end();
+        await modifyToppingSQL(toppingId, [topping_name, topping_price, topping_calory, topping_stock, topping_description, topping_image]);
 
         res.send(`<script>alert('Data modified successfully !'); window.location.href = '/admin';</script>`);
     } catch (error) {

@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
+
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -7,16 +8,19 @@ const dbConfig = {
     database: process.env.DB_DATABASE
 };
 
+
+const { getUserByEmailSQL } = require('../models/databaseOperations');
+
 const login = async (req, res) => {
     try {
-        console.log('Request Body:', req.body);
 
         const { email, password } = req.body;
+
+        const users = await getUserByEmailSQL(email);
+
+        console.log('Request Body:', req.body);
         
         console.log('Attempting login with:', email, password);
-
-        const conn = await mysql.createConnection(dbConfig);
-        const [users] = await conn.execute('SELECT * FROM user WHERE user_email = ?', [email]);
 
         console.log('Users found:', users);
 
@@ -51,7 +55,6 @@ const login = async (req, res) => {
             res.status(401).json({ success: false, message: 'Email ou mot de passe incorrect' });
         }
         
-        await conn.end();
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ success: false, message: 'Erreur interne du serveur' });
