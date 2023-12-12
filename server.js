@@ -229,7 +229,16 @@ app.get('/checkout', ensureLoggedIn, (req, res) => {
 
 // Routes pour les modifications du account
 app.post('/modifyUser', accountController.modifyUser);
-
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).send('Erreur de déconnexion');
+        } else {
+            res.redirect('/'); // Redirige vers la page d'accueil après la déconnexion
+        }
+    });
+});
 
 // Démarrage du serveur 
 app.listen(process.env.WEB_PORT, '0.0.0.0', () => {
