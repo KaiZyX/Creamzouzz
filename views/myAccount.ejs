@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="/css/myAccount.css">
     <title>My Account - Icreamzouz</title>
 </head>
+
 <body>
+    <a href="/" class="home-button">Go to Homepage</a>
     <div class="my-account-container">
         <div class="user-info">
-            <h2>User Information</h2>
+            <h2>Informations Utilisateur</h2>
             <% if (userData) { %>
-                <p><strong>Name:</strong> <%= userData.user_name %></p>
-                <p><strong>Email:</strong> <%= userData.user_email %></p>
-                <p><strong>Address:</strong> <%= userData.user_address %></p>
-                
-                <button onclick="toggleForm('modifyUserForm')">Modify User Information</button>
-            <% } else { %>
-                <p>No information found for this user.</p>
-            <% } %>
+                <p><strong>Nom:</strong>
+                    <%= userData.user_name %>
+                </p>
+                <p><strong>Email:</strong>
+                    <%= userData.user_email %>
+                </p>
+                <p><strong>Adresse:</strong>
+                    <%= userData.user_address %>
+                </p>
+
+                <button onclick="toggleForm('modifyUserForm')">Modifier les infos utilisateur</button>
+                <% } else { %>
+                    <p>Aucune information trouvée pour cet utilisateur.</p>
+                    <% } %>
         </div>
 
-        <!-- Form for modification in a separate box -->
+        <!-- Formulaire de modification dans une case séparée -->
         <div class="modify-form" id="modifyUserForm" style="display: none;">
-            
+
             <form id="modifyUserForm" action="/modifyUser" method="POST">
-                <h2>Modify Information</h2>
-                <label for="user_name">Name:</label>
-                <input type="text" id="user_name" name="user_name" value="<%= userData ? userData.user_name : '' %>" required><br>
+                <h2>Modifier les Informations</h2>
+                <label for="user_name">Nom:</label>
+                <input type="text" id="user_name" name="user_name" value="<%= userData ? userData.user_name : '' %>"
+                    required><br>
 
                 <label for="user_email">Email:</label>
-                <input type="email" id="user_email" name="user_email" value="<%= userData ? userData.user_email : '' %>" required><br>
+                <input type="email" id="user_email" name="user_email" value="<%= userData ? userData.user_email : '' %>"
+                    required><br>
 
-                <label for="user_address">Address:</label>
-                <input type="text" id="user_address" name="user_address" value="<%= userData ? userData.user_address : '' %>" required><br>
+                <label for="user_address">Adresse:</label>
+                <input type="text" id="user_address" name="user_address"
+                    value="<%= userData ? userData.user_address : '' %>" required><br>
 
-                <button type="submit">Update</button>
+                <button type="submit">Mettre à jour</button>
             </form>
         </div>
-        <!-- Other HTML content -->
+        <!-- Autres contenus HTML -->
     </div>
 
     <!-- Scripts -->
@@ -49,6 +61,11 @@
                 form.style.display = "none";
             }
         }
+        document.querySelector('.home-button').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default behavior of anchor tag
+            window.location.href = '/'; // Redirect to the homepage
+        });
     </script>
 </body>
+
 </html>
