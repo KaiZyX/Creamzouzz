@@ -144,7 +144,7 @@ function hideModifyToppingModal() {
     modifyToppingModal.style.display = 'none'; // Masque la superposition modale
 }
 
-function modifyTopping(toppingId) {
+async function modifyTopping(toppingId) {
     hideModifyForms();
     showModifyToppingModal();
 
@@ -152,8 +152,22 @@ function modifyTopping(toppingId) {
     modifyToppingForm.style.display = 'block';
     modifyToppingForm.action = `/modifyTopping/${toppingId}`;
 
-    // Fetch topping details using toppingId and pre-fill the form fields for modification
-    // ...
+    try {
+        const response = await fetch(`/fetchToppingDetails/${toppingId}`);
+        const toppingDetails = await response.json();
+        
+        // Pré-remplir les champs du formulaire avec les détails récupérés
+        document.getElementById('mdy_topping_name').value = toppingDetails.topping_name;
+        document.getElementById('mdy_topping_price').value = toppingDetails.topping_price;
+        document.getElementById('mdy_topping_calory').value = toppingDetails.topping_calory;
+        document.getElementById('mdy_topping_stock').value = toppingDetails.topping_stock;
+        document.getElementById('mdy_topping_description').value = toppingDetails.topping_description;
+        document.getElementById('mdy_topping_image').value = toppingDetails.topping_image;
+
+    } catch (error) {
+        console.error(error);
+        alert('Error fetching topping details');
+    }
 }
 
 function hideModifyForms() {

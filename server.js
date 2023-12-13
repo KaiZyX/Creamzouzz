@@ -205,6 +205,27 @@ app.get('/fetchIcecreamDetails/:icecreamId', async (req, res) => {
     }
 });
 
+app.get('/fetchToppingDetails/:toppingId', async (req, res) => {
+    const toppingId = req.params.toppingId;
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        const [toppingDetails] = await connection.execute(
+            'SELECT * FROM Topping WHERE topping_id = ?',
+            [toppingId]
+        );
+        await connection.end();
+
+        if (toppingDetails.length > 0) {
+            res.json(toppingDetails[0]); // Renvoie les détails du topping au format JSON
+        } else {
+            res.status(404).send('Topping not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching topping details');
+    }
+});
 
 
 // Routes pour l'API du panier
