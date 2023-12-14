@@ -22,7 +22,7 @@ if (checkoutButton) {
 }
 
 
-
+// affiche si l'user est connecté
 document.getElementById('open-cart-button').addEventListener('click', function(event) {
     event.preventDefault();
     if (!userId) {
@@ -32,7 +32,7 @@ document.getElementById('open-cart-button').addEventListener('click', function(e
     }
 });
 
-
+// Clear le panier
 document.getElementById("clear-cart-button").addEventListener("click", () => {
     cartItems = [];
     totalPrice = 0.00;
@@ -40,7 +40,7 @@ document.getElementById("clear-cart-button").addEventListener("click", () => {
     updateTotalPrice();
 });
 
-
+// fermer le panier
 document.getElementById("cart-close").addEventListener('click', () => {
     toggleCart();
 });
@@ -53,15 +53,7 @@ document.getElementById('admin-button').addEventListener('click', () => {
 
 
 // ====== Fonctions Utilitaires pour la Navigation et l'Affichage ======
-function smoothScroll(targetId) {
-    const target = document.getElementById(targetId);
-    if (target) {
-        window.scrollTo({
-            top: target.offsetTop,
-            behavior: "smooth"
-        });
-    }
-}
+
 
 function detectVisibleSection() {
     const sections = document.querySelectorAll("section");
@@ -252,7 +244,7 @@ navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
         e.preventDefault();
         const targetId = link.getAttribute("href").slice(1);
-        smoothScroll(targetId);
+        
         navLinks.forEach(navLink => navLink.classList.remove("active"));
         link.classList.add("active");
     });
