@@ -30,8 +30,9 @@ To get started with our project, follow these installation steps:
       v18.17.1
    npm -v
       9.6.7
+   npm install dotenv
 
-3. Install the sql file and open it in MySql workbench
+4. Install the sql file and open it in MySql workbench
    
 ============
 Usage Guide
@@ -39,7 +40,7 @@ Usage Guide
 
 To use our project:
 
-1. Open the env file and enter your information. Do the same in the server.js in the "const dbConfig" section.
+1. Open the env file and enter your information.
 2. Enter in your navigator: http://localhost:9000 (if your port was 9000).
 3. Explore the available ice cream options and customize your order.
 4. Follow the on-screen instructions to complete your purchase.
