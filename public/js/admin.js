@@ -1,36 +1,42 @@
+// Récupération des éléments HTML par leur ID
+
 const showIcecreamsBtn = document.getElementById('showIcecreamsBtn');
 const icecreamsSection = document.getElementById('icecreamsSection');
 const toppingsSection = document.getElementById('toppingsSection'); // Selection for toppings section
 
 let currentForm = null;
 
+
+// Écouteur d'événement pour le bouton Show Icecreams
 showIcecreamsBtn.addEventListener('click', () => {
-    // Check if icecreams section is already displayed or not
+     // Vérifie si la section des glaces est déjà affichée ou non
     const isIcecreamsDisplayed = icecreamsSection.style.display === 'block';
 
     // Check if toppings section is already displayed or not
     const isToppingsDisplayed = toppingsSection.style.display === 'block';
 
-    // Hide all sections before displaying one
+    // Masque toutes les sections avant d'en afficher une
     icecreamsSection.style.display = 'none';
     toppingsSection.style.display = 'none';
 
-    // Display or hide section based on its current state
+     // Affiche ou masque la section en fonction de son état actuel
     if (!isIcecreamsDisplayed && !isToppingsDisplayed) {
         icecreamsSection.style.display = 'block';
         toppingsSection.style.display = 'block';
     }
 });
 
+
+// Fonction pour basculer l'affichage d'un formulaire spécifique en fonction de son ID
 function toggleForm(formId) {
     const form = document.getElementById(formId);
     const icecreamSection = document.getElementById('icecreamsSection');
     const toppingsSection = document.getElementById('toppingsSection');
-
+     // Cache le formulaire actuel s'il y en a un différent
     if (currentForm && currentForm !== form) {
         currentForm.style.display = 'none';
     }
-
+    // Affiche ou masque le formulaire en fonction de son état actuel
     if (form.style.display === 'none') {
         form.style.display = 'block';
         currentForm = form;
@@ -39,7 +45,7 @@ function toggleForm(formId) {
         currentForm = null;
     }
 
-    // Hide the Edit/Remove section when opening a form
+    // Cache la section Edit/Remove lors de l'ouverture d'un formulaire
     icecreamSection.style.display = 'none';
     toppingsSection.style.display = 'none';
 
@@ -47,7 +53,7 @@ function toggleForm(formId) {
 
 
 
-
+// Fonction asynchrone pour supprimer une glace en utilisant une requête fetch
 async function deleteIcecream(icecreamId) {
     try {
         const response = await fetch('/deleteIcecream', {
@@ -66,7 +72,7 @@ async function deleteIcecream(icecreamId) {
         alert('Error deleting icecream');
     }
 }
-
+// Fonction asynchrone pour supprimer un topping en utilisant une requête fetch
 async function deleteTopping(toppingId) {
     try {
         const response = await fetch('/deleteTopping', {
@@ -85,17 +91,19 @@ async function deleteTopping(toppingId) {
         alert('Error deleting topping');
     }
 }
-
+// Fonction pour afficher le modal de modification pour une glace
 function showModifyIcecreamModal() {
     const modifyIcecreamModal = document.getElementById('modifyIcecreamModal');
     modifyIcecreamModal.style.display = 'flex'; // Affiche la superposition modale
 }
-
+// Fonction pour masquer le modal de modification pour une glace
 function hideModifyIcecreamModal() {
     const modifyIcecreamModal = document.getElementById('modifyIcecreamModal');
     modifyIcecreamModal.style.display = 'none'; // Masque la superposition modale
 }
 
+
+// Fonction asynchrone pour modifier une glace
 async function modifyIcecream(icecreamId) {
     hideModifyForms();
     showModifyIcecreamModal();
@@ -133,17 +141,19 @@ async function modifyIcecream(icecreamId) {
 
 
 
-
+// Fonction pour afficher le modal de modification pour un topping
 function showModifyToppingModal() {
     const modifyToppingModal = document.getElementById('modifyToppingModal');
     modifyToppingModal.style.display = 'flex'; // Affiche la superposition modale
 }
-
+// Fonction pour masquer le modal de modification pour un topping
 function hideModifyToppingModal() {
     const modifyToppingModal = document.getElementById('modifyToppingModal');
     modifyToppingModal.style.display = 'none'; // Masque la superposition modale
 }
 
+
+// Fonction asynchrone pour modifier un topping
 async function modifyTopping(toppingId) {
     hideModifyForms();
     showModifyToppingModal();
@@ -170,6 +180,8 @@ async function modifyTopping(toppingId) {
     }
 }
 
+
+// Fonction pour masquer les formulaires de modification
 function hideModifyForms() {
     const modifyIcecreamForm = document.getElementById('modifyIcecreamForm');
     const modifyToppingForm = document.getElementById('modifyToppingForm');
@@ -177,7 +189,7 @@ function hideModifyForms() {
     modifyIcecreamForm.style.display = 'none';
     modifyToppingForm.style.display = 'none';
 }
-
+// Fonction pour masquer les autres formulaires lors de l'ouverture d'un formulaire spécifique
 function hideOtherForms() {
     const addIcecreamForm = document.getElementById('icecreamForm');
     const addToppingForm = document.getElementById('toppingForm');

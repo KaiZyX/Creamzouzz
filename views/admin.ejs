@@ -3,23 +3,25 @@
 <html lang="en">
 
 <head>
-
+    <!-- En-tête de la page -->
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
+    <!-- Liens vers les styles et les bibliothèques externes -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap">
     <title>ADMIN PAGE</title>
 
-    <style>
-        /* Hide forms initially */
+    <style>  
+    /* On lance le site sans formulaire d'ouvert */     
         form {
             display: none;
         }
     </style>
+
+     <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -36,7 +38,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="/" class="btn btn-primary">Accueil</a>
+                <a href="/" class="btn btn-primary">Home</a>
             </li>
 
 
@@ -49,6 +51,7 @@
     <section id="icecreamsSection" class="container" style="display: none;">
         <h2>ICECREAMS</h2>
         <div class="row">
+            <!-- Boucle pour afficher chaque glace -->
             <% icecreams.forEach(icecream=> { %>
                 <div class="col-md-4">
                     <div class="card">
@@ -75,9 +78,11 @@
                 <% }); %>
         </div>
     </section>
+    <!-- Section pour afficher les toppings -->
     <section id="toppingsSection" class="container" style="display: none;">
         <h2>TOPPINGS</h2>
         <div class="row">
+            <!-- Boucle pour afficher chaque topping -->
             <% toppings.forEach(topping=> { %>
                 <div class="col-md-4">
                     <div class="card">
@@ -105,7 +110,7 @@
     </section>
 
 
-
+    <!-- Formulaire pour ajouter une glace -->
     <form id="icecreamForm" action="/addIcecream" method="POST">
         <h1>Add Icecream</h1>
         <label for="icecream_brand">Icecream Brand:</label>
@@ -139,6 +144,9 @@
         <button type="submit">Add</button>
     </form>
 
+
+
+    <!-- Formulaire pour ajouter un topping -->
     <form id="toppingForm" action="/addTopping" method="POST">
         <h1>Add Topping</h1>
         <label for="topping_name">Topping Name:</label>
@@ -168,6 +176,9 @@
         <button type="submit">Add Topping</button>
     </form>
 
+
+
+    <!-- formulaire Modal pour modifier une glace -->
     <div id="modifyIcecreamModal" class="modal-overlay">
         <div class="modal-content">
             <button onclick="hideModifyIcecreamModal()" class="close-button">Close</button>
@@ -207,6 +218,8 @@
         </div>
     </div>
 
+
+    <!-- formulaire Modal pour modifier un topping -->
     <div id="modifyToppingModal" class="modal-overlay">
         <div class="modal-content">
             <button onclick="hideModifyToppingModal()" class="close-button">Close</button>
@@ -239,10 +252,8 @@
             </form>
         </div>
     </div>
-
+     <!-- Script pour la page admin -->
     <script src="/js/admin.js">
-
-        
     </script>
 
 
