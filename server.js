@@ -1,11 +1,9 @@
 // Importation des modules nécessaires
-const dotenv = require('dotenv');
-const mysql = require('mysql2/promise');
-const express = require('express');
-const session = require('express-session');
+const dotenv = require('dotenv'); // Variable environnement
+const mysql = require('mysql2/promise'); // BDD
+const express = require('express');// framework web
+const session = require('express-session');// gestion session
 const path = require('path'); // Module pour gérer les chemins de fichiers
-
-
 
 // Chargement des variables d'environnement de .env
 dotenv.config();
@@ -23,10 +21,10 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-// Serveur de fichiers statiques
+// Serveur des fichiers statiques css/js/image chemin : commence dans le fichier public 
 app.use(express.static('public'));
 
-// Middleware pour analyser les corps de requêtes
+// Middleware pour analyser les corps de requêtes POST
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -62,7 +60,6 @@ const CartController = require('./controllers/CartController');
 const adminController = require('./controllers/adminController');
 const accountController = require('./controllers/accountController');
 
-
 // Route principale /
 app.get('/', async (request, response) => {
     try {
@@ -80,11 +77,13 @@ app.get('/', async (request, response) => {
         const [toppings] = await conn.execute('SELECT * FROM Topping');
         await conn.end();
 
+
+        // Renvoie une reponse au client avec le contenue de la page index
         response.render('index', { 
             icecreams: icecreams,
             toppings: toppings,
             user: request.session.userId ? { userID: request.session.userId } : null,
-            isAdmin: userRole === 'admin' // Pass isAdmin true or false to the view
+            isAdmin: userRole === 'admin' // Si l'utilisateur est admin ou pas 
         });
 
     } catch (error) {
@@ -92,40 +91,6 @@ app.get('/', async (request, response) => {
         response.status(500).send('Erreur Interne du Serveur');
     }
 });
-
-
-// Route pour la gestion du compte utilisateur 
-app.get('/account', async (req, res) => {
-    if (req.session.userId) {
-        let conn;
-        try {
-            conn = await mysql.createConnection(dbConfig);
-            console.log(`User ID: ${req.session.userId}`);
-
-            if (rows.length > 0) {
-                    console.log(`Client User ID: ${req.session.userId} - Accessing myAccount.ejs`);
-                    res.render('/myAccount', { user: req.session.userId }); // Page de compte standard pour les clients
-            } else {
-                console.log(`No user found with ID: ${req.session.userId} - Redirecting to login`);
-                req.session.destroy(() => {
-                    res.redirect('/login'); // Si l'utilisateur n'existe pas dans la DB, détruire la session et rediriger vers login
-                });
-            }
-        } catch (error) {
-            console.error('Database error:', error);
-            res.status(500).send('Erreur interne du serveur');
-        } finally {s
-            if (conn) {
-                await conn.end();
-            }
-        }
-    } else {
-        console.log('No user session found - Redirecting to login');
-        res.redirect('/login'); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    }
-});
-
-
 
 // Route pour l'administration
 app.get('/admin', async (request, response) => {
@@ -135,6 +100,7 @@ app.get('/admin', async (request, response) => {
         const [toppings] = await conn.execute('SELECT * FROM Topping');
         await conn.end();
 
+        // Renvoie une reponse au client avec le contenue de la page pour admin
         response.render('admin', { 
             icecreams: icecreams,
             toppings: toppings,
@@ -146,23 +112,17 @@ app.get('/admin', async (request, response) => {
     }
 });
 
-
-
 // Route pour la modification Account 
 app.get('/myAccount', async (req, res) => {
     if (req.session.userId) {
-        let conn;
         try {
-            conn = await mysql.createConnection(dbConfig);
+            const conn = await mysql.createConnection(dbConfig);
             const [userData] = await conn.execute('SELECT * FROM User WHERE user_id = ?', [req.session.userId]);
             await conn.end();
 
-            if (userData.length > 0) {
-                const user = userData[0];
-                res.render('myAccount', { userData: user });
-            } else {
-                res.render('myAccount', { userData: null });
-            }
+            const user = userData[0];
+            res.render('myAccount', { userData: user }); // Renvoie une reponse au client avec le contenue de la page avec ses information 
+           
         } catch (error) {
             console.error('Database error:', error);
             res.status(500).send('Erreur interne du serveur');
@@ -171,8 +131,6 @@ app.get('/myAccount', async (req, res) => {
         res.redirect('/login'); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     }
 });
-
-
 
 // Routes pour la gestion des produits et du panier dans la page Admin
 app.post('/addIcecream', adminController.addIcecream);
@@ -205,6 +163,7 @@ app.get('/fetchIcecreamDetails/:icecreamId', async (req, res) => {
     }
 });
 
+// Route pour récupérer les détails du topping pour la modification
 app.get('/fetchToppingDetails/:toppingId', async (req, res) => {
     const toppingId = req.params.toppingId;
 
@@ -227,7 +186,6 @@ app.get('/fetchToppingDetails/:toppingId', async (req, res) => {
     }
 });
 
-
 // Routes pour l'API du panier
 app.post('/api/cart/add', CartController.addToCart);
 app.post('/api/cart/remove', CartController.removeFromCart);
@@ -246,10 +204,10 @@ app.get('/checkout', ensureLoggedIn, (req, res) => {
     res.render('checkout', { cartItems: req.session.cartItems, totalPrice: req.session.totalPrice });
 });
 
-
-
 // Routes pour les modifications du account
 app.post('/modifyUser', accountController.modifyUser);
+
+// Routes pour logout
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
