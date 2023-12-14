@@ -7,11 +7,15 @@
 </head>
 
 <body>
+     <!-- Liens pour la déconnexion et le retour à la page d'accueil -->
     <a href="/logout" class="logout-button">Déconnexion</a>
     <a href="/" class="home-button">Go to Homepage</a>
+
+    <!-- Conteneur principal pour les informations du compte utilisateur -->
     <div class="my-account-container">
         <div class="user-info">
             <h2>Informations Utilisateur</h2>
+             <!-- Vérification et affichage des données utilisateur -->
             <% if (userData) { %>
                 <p><strong>Nom:</strong>
                     <%= userData.user_name %>
@@ -35,7 +39,8 @@
             <form id="modifyUserForm" action="/modifyUser" method="POST">
                 <h2>Modifier les Informations</h2>
                 <label for="user_name">Nom:</label>
-                <input type="text" id="user_name" name="user_name" value="<%= userData ? userData.user_name : '' %>"
+                <!-- On entre dans value les information actuelle de l'utilisateur -->
+                <input type="text" id="user_name" name="user_name" value="<%= userData ? userData.user_name : '' %>" 
                     required><br>
 
                 <label for="user_email">Email:</label>
@@ -53,19 +58,7 @@
     </div>
 
     <!-- Scripts -->
-    <script>
-        function toggleForm(formId) {
-            var form = document.getElementById(formId);
-            if (form.style.display === "none") {
-                form.style.display = "block";
-            } else {
-                form.style.display = "none";
-            }
-        }
-        document.querySelector('.home-button').addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default behavior of anchor tag
-            window.location.href = '/'; // Redirect to the homepage
-        });
+    <script src="/js/myAccount.js">
     </script>
 </body>
 
